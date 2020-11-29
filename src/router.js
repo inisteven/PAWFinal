@@ -63,10 +63,10 @@ const router = new VueRouter({
         },
         // man
         {
-        path : "/man",
-        name : "Man",
-        meta: {title: "Man"},
-        component : importComponent('Homepage/Man'),
+            path : "/man",
+            name : "Man",
+            meta: {title: "Man"},
+            component : importComponent('Homepage/Man'),
         },
         // woman
         {
@@ -95,6 +95,12 @@ const router = new VueRouter({
             name : "Sign Up",
             meta: {title: "Sign Up"},
             component : importComponent('SignUp'),
+        },
+        {
+            path : "/payment",
+            name : "Payment",
+            meta: {title: "Payment"},
+            component : importComponent('payment'),
         },
     ]
 });
