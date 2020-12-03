@@ -60,7 +60,7 @@
 </template>
 
 <style>
-.login {
+.back {
   background-image: url(../assets/signIn.png);
   background-attachment: fixed;
   background-size: cover;
