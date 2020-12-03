@@ -96,8 +96,8 @@ export default {
   },
   methods:{
     readData(){
-      this.idLogin = this.$localStorage.getItem('id');
-      this.isLoggedIn = this.$localStorage.getItem("isLoggedIn");
+      this.idLogin = localStorage.getItem('id');
+      this.isLoggedIn = localStorage.getItem("isLoggedIn");
     }
   },
   mounted(){

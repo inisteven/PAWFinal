@@ -134,6 +134,7 @@
         <v-btn @click="save">Save</v-btn>
       </div>
     </div>
+    <v-snackbar v-model="snackbar" :color="color" timeout="2000" bottom>{{ error_message }}</v-snackbar>
     <footer-component></footer-component>
   </div>
 </template>
@@ -172,7 +173,7 @@ export default {
       confirmPasswordRules:[
             (v)=> !!v || 'Confirm password is required',
             (v)=> (v && v.length >=6) || 'Confirm password must be at least 6 characters',
-            (v)=> v===this.password || 'Confirm password does not match'
+            (v)=> v===this.newPassword || 'Confirm password does not match'
       ],
     }
   },
@@ -187,6 +188,12 @@ export default {
         )
         .then((response) => {
           this.user = response.data.data;
+          
+          this.first_name = response.data.data.first_name;
+          console.log(this.first_name);
+          this.last_name = response.data.data.last_name;
+          this.email = response.data.data.email;
+          // this.first_name = response.data.data.first_name;
         }).catch(error => {
             this.error_message = error.response.data.message;
             this.loadSnackbar("red",true)
@@ -249,7 +256,8 @@ export default {
           this.snackbar = true;
           this.color="green"
           this.readData();
-          this.clearData();
+          this.$refs.formPassword.reset();
+          this.checkbox = false;
       }).catch(error => {
           this.error_message = error.response.data.message;
           this.snackbar = true;
@@ -280,7 +288,6 @@ export default {
       this.$refs.formPassword.reset();
     },
     save(){
-      console.log(this.checkbox);
       if(this.checkbox){
         if(this.$refs.formPassword.validate() && this.$refs.formName.validate()){
           this.updatePasswordAndData();
