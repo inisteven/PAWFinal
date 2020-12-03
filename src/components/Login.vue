@@ -59,6 +59,16 @@
   </div>
 </template>
 
+<script>
+import Header from "./Navbar.vue";
+import Footer from "./Footer.vue";
+export default {
+  components: {
+    "navbar-component": Header,
+    "footer-component": Footer,
+  },
+};
+</script>
 <style>
 .back {
   background-image: url(../assets/signIn.png);
