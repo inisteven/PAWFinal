@@ -1,15 +1,21 @@
 <template>
   <div>
     <navbar-component></navbar-component>
-    <div>
-      <img src="@/assets/LandingPage.jpg" class="d-block w-100" alt="..." />
+    <div class="back">
+      <!-- <img src="@/assets/LandingPage.jpg" class="d-block w-100" alt="..." /> -->
       <v-row align="center" justify="center"> </v-row>
+      <!-- <v-spacer></v-spacer> -->
+      <hr style="height:200pt; visibility:hidden;" />
+      <div align="center">
+        <h1 class="black--text">Cool Style, Cool Life</h1>
+        <h3 class="black--text">Find your true style here</h3>
+        <div class="my-2" align="center" justify="center">
+          <v-btn depressed class="black white--text" href="#section2">SHOP NOW</v-btn>
+        </div>
+      </div>
+      <hr style="height:200pt; visibility:hidden;" />
     </div>
-
-    <v-spacer></v-spacer>
-    <br />
-
-    <v-container class="lighten-5 mb-6 categori">
+    <v-container class="lighten-5 mb-6 categori" id="section2">
       <v-row style="height: 150px">
         <v-col>
           <router-link to="/man">
@@ -82,3 +88,16 @@ export default {
   },
 };
 </script>
+
+<style>
+  .back {
+    background-image: url(../assets/LandingPage.jpg);
+    background-attachment: fixed;
+    background-size: cover;
+    position: center;
+    background-repeat: no-repeat;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+</style>

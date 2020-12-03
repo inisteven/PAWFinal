@@ -1,12 +1,23 @@
 <template>
     <div>
         <navbar-component></navbar-component>
-        <div>
-            <v-img :src="require('@/assets/fashion.jpg')" class="d-block w-100" alt="aboutPic" max-height="700"></v-img>
+        <div class="backs">
+            <!-- <v-img :src="require('@/assets/fashion.jpg')" class="d-block w-100" alt="aboutPic" max-height="700"></v-img> -->
             <v-row align="center" justify="center"> </v-row>
+            <hr style="height:200pt; visibility:hidden;" />
+            <div align="center">
+                <h4></h4>
+                <br>
+                <h1 class="white--text">Get your style faster</h1>
+                <h3 class="white--text">and better with us</h3>
+                <div class="my-2" align="center" justify="center">
+                <v-btn depressed class="black white--text" href="#section2">Learn About Us</v-btn>
+                </div>
+            </div>
+            <hr style="height:200pt; visibility:hidden;" />
         </div>
             <template>
-                <v-container grid-list-md>
+                <v-container grid-list-md id="section2">
                     <v-card shaped flat class="text-center ma-3">
                         <v-card-title bold class="justify-center">
                             <div style="color:black;font-weight: bold;">We believe that fashion can give people more confidence</div>
@@ -177,3 +188,15 @@ export default {
 }
 </script>
 
+<style>
+  .backs {
+    background-image: url(../../assets/fashion.jpg);
+    background-attachment: fixed;
+    background-size: cover;
+    position: center;
+    background-repeat: no-repeat;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+</style>

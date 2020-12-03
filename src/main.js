@@ -6,7 +6,7 @@ import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-import axios from 'axios';
+// import axios from 'axios';
 
 
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
@@ -17,7 +17,7 @@ Vue.use(IconsPlugin)
 
 Vue.config.productionTip = false
 
-Vue.prototype.$http = axios;
+// Vue.prototype.$http = axios;
 Vue.prototype.$api = 'http://127.0.0.1:8000/api';
 Vue.prototype.$url = 'http://127.0.0.1:8000/';
 
