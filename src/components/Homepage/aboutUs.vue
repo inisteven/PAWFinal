@@ -8,10 +8,11 @@
             <div align="center">
                 <h4></h4>
                 <br>
-                <h1 class="white--text">Get your style faster</h1>
-                <h3 class="white--text">and better with us</h3>
+                <h1 class="white--text v-input">Get your style FASTER</h1>
+                <h3 class="white--text v-input">and BETTER with us</h3>
+                <br />
                 <div class="my-2" align="center" justify="center">
-                <v-btn depressed class="black white--text" href="#section2">Learn About Us</v-btn>
+                    <v-btn depressed class="black white--text" href="#section2">Learn About Us</v-btn>
                 </div>
             </div>
             <hr style="height:200pt; visibility:hidden;" />
@@ -198,5 +199,9 @@ export default {
   }
   html {
     scroll-behavior: smooth;
+  }
+  .v-input {
+    font-size: 4em;
+    justify-content: center;
   }
 </style>
