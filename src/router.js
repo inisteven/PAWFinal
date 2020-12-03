@@ -82,6 +82,13 @@ const router = new VueRouter({
             meta: {title: "Accessories"},
             component : importComponent('Homepage/Accessories'),
         },
+        //detail
+        {
+            path : "/detail",
+            name : "Detail Product",
+            meta: {title: "Detail Product"},
+            component : importComponent('DetailProduct'),
+        },
         // login
         {
             path : "/signIn",
@@ -102,6 +109,13 @@ const router = new VueRouter({
             meta: {title: "Payment"},
             component : importComponent('payment'),
         },
+        {
+            path : "/cart",
+            name : "Cart",
+            meta: {title: "Cart"},
+            component : importComponent('cart'),
+        },
+        
     ]
 });
 

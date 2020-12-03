@@ -21,7 +21,7 @@
           <b-navbar-nav class="ml-auto" variant="dark">
             <v-btn height="65px" text router to="/signIn">Sign in</v-btn>
             <v-btn height="65px" text router to="/signUp">Sign Up</v-btn>
-            <b-nav-item href="#"> <img :src="cart" class="align-top logo" alt="Logo" width="60px" /> </b-nav-item>
+            <b-nav-item router to="/cart"> <img :src="cart" class="align-top logo" alt="Logo" width="60px"  /> </b-nav-item>
           </b-navbar-nav>
         </ul>
       </div>
