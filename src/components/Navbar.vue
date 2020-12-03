@@ -1,18 +1,36 @@
 <template>
   <header>
     <b-nav class="navbar navbar-expand-md">
-      <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+      <div
+        class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2"
+      >
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <v-text-field v-model="search" hide-details prepend-icon="mdi-magnify" label="Search our item" single-line></v-text-field>
+            <v-text-field
+              v-model="search"
+              hide-details
+              prepend-icon="mdi-magnify"
+              label="Search our item"
+              single-line
+            ></v-text-field>
           </li>
         </ul>
       </div>
       <div class="mx-auto order-0">
         <b-navbar-brand href="#">
-          <img :src="image" class="d-inline-block align-top logo" alt="Logo" width="220px" />
+          <img
+            :src="image"
+            class="d-inline-block align-top logo"
+            alt="Logo"
+            width="220px"
+          />
         </b-navbar-brand>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target=".dual-collapse2"
+        >
           <span class="navbar-toggler-icon"></span>
         </button>
       </div>
@@ -22,13 +40,16 @@
             <div v-if="!isLoggedIn">
               <v-btn height="65px" text router to="/signIn">Sign in</v-btn>
               <v-btn height="65px" text router to="/signUp">Sign Up</v-btn>
-              <ejs-dropdownlist :dataSource='option' placeholder="Hello">
-
-              </ejs-dropdownlist>
             </div>
             <div v-else>
-              
-              <b-nav-item router to="/cart"> <img :src="cart" class="align-top logo" alt="Logo" width="60px"  /> </b-nav-item>
+              <b-nav-item router to="/cart">
+                <img
+                  :src="cart"
+                  class="align-top logo"
+                  alt="Logo"
+                  width="60px"
+                />
+              </b-nav-item>
             </div>
           </b-navbar-nav>
         </ul>
@@ -54,22 +75,21 @@
 </template>
 
 <script>
-
 import image from "../assets/logoHitam.png";
 import cart from "../assets/cart.png";
 export default {
   data: function () {
     return {
-      option:["Profile","Logout"],
+      option: ["Profile", "Logout"],
       // option:[
       //   {id: "profle", text: "Profile",to: ""},
       //   {id: "logout",text: "Logout",to: ""},
       // ],
-      fields: { value:'id' , text:"text"},
-      isLoggedIn: this.$localStorage.getItem('isLoggedIn'),
+      fields: { value: "id", text: "text" },
+      isLoggedIn: this.$localStorage.getItem("isLoggedIn"),
       image: image,
       cart: cart,
-      test: 'benny',
+      test: "benny",
       search: "",
     };
   },

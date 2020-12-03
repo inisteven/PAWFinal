@@ -10,77 +10,94 @@
             <thead class="thead-light" :headers="headers">
               <tr>
                 <th scope="col">Item</th>
-                <th scope="col"></th>
+                <th scope="col">Size</th>
                 <th scope="col">Quantity</th>
                 <th scope="col">Total</th>
-                <th scope="col"></th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <th>
-                  <img
-                    src="@/assets/Long cotton blend cardigan1.jpg"
-                    alt="Image"
-                    width="150px"
-                  />
-                </th>
                 <td>
-                  <div class="product-info">
-                    <h5>Nama Product</h5>
-                    <h6>Harga</h6>
-                    <subtitle-2>Size</subtitle-2>
-                  </div>
+                  <h5>Nama Product</h5>
                 </td>
-                <td>
-                  <v-btn text small @click="decrement">-</v-btn>
-                  {{ this.quantity }}
-                  <v-btn text small @click="increment">+</v-btn>
-                </td>
-                <td>@Harga*jumlah</td>
-                <td>
-                  <v-icon
-                    small
-                    class="mr-2"
-                    @click="deleteItem(item)"
-                    icon
-                    slot="activator"
-                    >X</v-icon
-                  >
-                </td>
+                <td>Size</td>
+                <td>this.quantity</td>
+                <td>Rp. xxxxxxxxxx</td>
               </tr>
+
               <tr>
-                <td colspan="3" align="right">
-                  <strong>Total Harga :</strong>
+                <td colspan="3" align="right">Subtotal</td>
+                <td>Rp. xxxxxxxxxx</td>
+              </tr>
+
+              <tr>
+                <td colspan="3" align="right" style="border: none">Shipping</td>
+                <td style="border: none">Rp. xxxxxxxxxx</td>
+              </tr>
+
+              <tr>
+                <td colspan="3" align="right" style="border: none">
+                  <strong>Total :</strong>
                 </td>
-                <td>
-                  <strong>Rp.xxxxxxxxxx </strong>
-                </td>
+                <td style="border: none">Rp. xxxxxxxxxx</td>
               </tr>
             </tbody>
           </table>
-          <div class="row justify-content-end">
-            <div class="col-md-4">
-              <v-btn
-                class="black white--text"
-                text
-                router
-                to="/confirmation"
-                dark
-                small
-                >BACK TO STORE</v-btn
-              >
+          <v-row>
+            <div class="col justify-content-start">
+              <div class="col-8">
+                <div class="blue-grey lighten-4">
+                  <h6 class="black--text" style="padding: 6px">
+                    Shipping Info
+                    <router-link class="text-left black--text" text to="payment"
+                      >Edit</router-link
+                    >
+                  </h6>
+                </div>
+                <div class="custom-file">
+                  <h6>Nama</h6>
+                  <h6>Alamat</h6>
+                  <h6>Kecamatan</h6>
+                  <h6>Nomor HP</h6>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="continue">
-            <router-link to="home" text class="black--text"
-              ><v-icon>mdi-keyboard-backspace </v-icon> Continue
-              Shopping</router-link
-            >
-          </div>
+
+            <div class="col justify-content-end">
+              <div class="col-8" style="margin-left: 160px">
+                <div class="blue-grey lighten-4">
+                  <h6 class="black--text" style="padding: 6px">
+                    Bukti Transfer
+                  </h6>
+                </div>
+                <div class="custom-file">
+                  <input
+                    type="file"
+                    class="custom-file-input"
+                    id="customFile"
+                  />
+                  <label class="custom-file-label" for="customFile"
+                    >Choose file</label
+                  >
+                </div>
+              </div>
+            </div>
+          </v-row>
         </div>
       </v-col>
     </v-row>
+    <div
+      class="button"
+      justify="center"
+      align="center"
+      style="margin-bottom: 100px"
+    >
+      <v-btn class="black white--text" text router to="/thankyou" dark
+        >CONFRIM</v-btn
+      >
+    </div>
+    <br />
+
     <footer-component></footer-component>
 
     <template>

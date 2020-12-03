@@ -10,12 +10,10 @@ import axios from 'axios';
 
 
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
-import { DropDownListPlugin } from '@syncfusion/ej2-vue-dropdowns';
 
 Vue.use(BootstrapVue)
 
 Vue.use(IconsPlugin)
-Vue.use(DropDownListPlugin)
 
 Vue.config.productionTip = false
 

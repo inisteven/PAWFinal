@@ -122,6 +122,13 @@ const router = new VueRouter({
             meta: {title: "Thankyou"},
             component : importComponent('Thankyou'),
         },
+        //confirm
+        {
+            path : "/confirmation",
+            name : "Confirmation",
+            meta: {title: "Confirmation"},
+            component : importComponent('Confirm'),
+        },
         
     ]
 });
