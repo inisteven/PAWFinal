@@ -9,7 +9,7 @@
     >
       <v-list-item>
         <v-list-item-content>
-          <img src="@/assets/logoPutih.png" alt width="100px" />
+          <img src="@/assets/logoputih.png" alt width="100px" />
         </v-list-item-content>
       </v-list-item>
       <br />
