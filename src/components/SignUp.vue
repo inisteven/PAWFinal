@@ -133,7 +133,7 @@
       }
   }
 </script>
-<style>
+<style scoped>
 
 .back{
     background-image: url(../assets/signUp.jpg);

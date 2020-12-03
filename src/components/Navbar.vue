@@ -42,14 +42,18 @@
               <v-btn height="65px" text router to="/signUp">Sign Up</v-btn>
             </div>
             <div v-else>
-              <b-nav-item router to="/cart">
+            <b-nav-item router to="/cart">
+              <v-badge
+                color="red"
+                :content="jumlah">
                 <img
                   :src="cart"
-                  class="align-top logo"
+                  class="align-top logo ml-10"
                   alt="Logo"
                   width="60px"
                 />
-              </b-nav-item>
+              </v-badge>
+            </b-nav-item>
             </div>
           </b-navbar-nav>
         </ul>
@@ -80,19 +84,25 @@ import cart from "../assets/cart.png";
 export default {
   data: function () {
     return {
-      option: ["Profile", "Logout"],
-      // option:[
-      //   {id: "profle", text: "Profile",to: ""},
-      //   {id: "logout",text: "Logout",to: ""},
-      // ],
       fields: { value: "id", text: "text" },
-      isLoggedIn: this.$localStorage.getItem("isLoggedIn"),
+      idLogin: '',
+      isLoggedIn: '',
+      $nama: 'Benny',
       image: image,
       cart: cart,
-      test: "benny",
       search: "",
+      jumlah: 10, //SELECT (jumlah) from cart where id = idLogin AND isPay = 0
     };
   },
+  methods:{
+    readData(){
+      this.idLogin = this.$localStorage.getItem('id');
+      this.isLoggedIn = this.$localStorage.getItem("isLoggedIn");
+    }
+  },
+  mounted(){
+    this.readData();
+  }
 };
 </script>
 

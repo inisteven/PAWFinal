@@ -69,7 +69,7 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 .back {
   background-image: url(../assets/signIn.png);
   background-attachment: fixed;
@@ -116,12 +116,12 @@ export default {
                 email: this.email,
                 password: this.password
             }).then(response=>{
-                // localStorage.setItem('id', response.data.user.id);
                 localStorage.setItem('token', response.data.access_token); //menyimpan auth token
                 localStorage.setItem('isLoggedIn', true);
                 this.error_message = response.data.message;
                 if(response.data.status == "success"){
                   this.cancel();
+                  localStorage.setItem('id', response.data.user.id);
                   this.loadSnackbar("green",true)
                   this.$router.push({
                       name: 'Homepage'

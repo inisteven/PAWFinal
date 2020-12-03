@@ -1,5 +1,5 @@
 <template>
-  <v-data-iterator :items="products" :search="search" hide-default-footer>
+  <v-main class="list">
     <navbar-component></navbar-component>
     <div>
       <v-img
@@ -39,7 +39,7 @@
     </template>
     <template> </template>
     <footer-component></footer-component>
-  </v-data-iterator>
+  </v-main>
 </template>
 
 <script>
