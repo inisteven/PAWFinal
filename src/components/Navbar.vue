@@ -19,9 +19,17 @@
       <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
         <ul class="navbar-nav ml-auto">
           <b-navbar-nav class="ml-auto" variant="dark">
-            <v-btn height="65px" text router to="/signIn">Sign in</v-btn>
-            <v-btn height="65px" text router to="/signUp">Sign Up</v-btn>
-            <b-nav-item router to="/cart"> <img :src="cart" class="align-top logo" alt="Logo" width="60px"  /> </b-nav-item>
+            <div v-if="!isLoggedIn">
+              <v-btn height="65px" text router to="/signIn">Sign in</v-btn>
+              <v-btn height="65px" text router to="/signUp">Sign Up</v-btn>
+              <ejs-dropdownlist :dataSource='option' placeholder="Hello">
+
+              </ejs-dropdownlist>
+            </div>
+            <div v-else>
+              
+              <b-nav-item router to="/cart"> <img :src="cart" class="align-top logo" alt="Logo" width="60px"  /> </b-nav-item>
+            </div>
           </b-navbar-nav>
         </ul>
       </div>
@@ -46,13 +54,22 @@
 </template>
 
 <script>
+
 import image from "../assets/logoHitam.png";
 import cart from "../assets/cart.png";
 export default {
   data: function () {
     return {
+      option:["Profile","Logout"],
+      // option:[
+      //   {id: "profle", text: "Profile",to: ""},
+      //   {id: "logout",text: "Logout",to: ""},
+      // ],
+      fields: { value:'id' , text:"text"},
+      isLoggedIn: this.$localStorage.getItem('isLoggedIn'),
       image: image,
       cart: cart,
+      test: 'benny',
       search: "",
     };
   },
@@ -60,6 +77,7 @@ export default {
 </script>
 
 <style scoped>
+@import url(https://cdn.syncfusion.com/ej2/material.css);
 @import url(https://fonts.googleapis.com/css?family=Roboto);
 /* * {
     margin: 0;
