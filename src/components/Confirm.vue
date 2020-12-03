@@ -2,7 +2,7 @@
   <div id="detail">
     <navbar-component></navbar-component>
     <br />
-    <h1 class="font-weight-black text-center">SHOOPING CART</h1>
+    <h1 class="font-weight-black text-center">CONFIRMATION</h1>
     <v-row>
       <v-col>
         <div class="mt-5" style="margin: 60px">

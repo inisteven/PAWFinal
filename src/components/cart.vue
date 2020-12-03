@@ -68,7 +68,7 @@
                 to="/confirmation"
                 dark
                 small
-                >BACK TO STORE</v-btn
+                >CHECKOUT</v-btn
               >
             </div>
           </div>
