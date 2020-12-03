@@ -1,42 +1,45 @@
 <template>
-    <div class="Dashboard">
-        <h1>haiiiiiiiiii</h1>
-    </div>
+    <v-main class="list">
+        <v-container class="center">
+            <v-row class="">
+                <v-col v-for="item in kategori" :key="item.key" class="col-md-4 col-sm-12">
+                    <v-hover v-slot="{ hover }">
+                        <v-card
+                            :elevation="hover ? 12 : 2"
+                            :class="{ 'on-hover': hover}" 
+                            width="300px"
+                            height="100px"
+                            class="text-center"
+                            @click="movePath(item.to)"
+                            style="cursor:pointer; 
+                                    margin-top: 150px;">
+                            <h3 class="text-center"><strong>{{item.text}}</strong></h3>
+                        </v-card>
+                    </v-hover>
+                </v-col>
+            </v-row>
+        </v-container>
+    </v-main>
 </template>
 <script>
 export default{
     name: "Dashboard",
+    data(){
+        return {
+            kategori: [
+                    {text:'MAN', key:'man', to:"/admin/man"},
+                    {text:'WOMAN', key:'woman', to:"/admin/woman"},
+                    {text:'ACC', key:'acc', to:"/admin/acc"},
+                ]
+        }  
+    },
     methods:{
-        logout(){
-            this.dialog = true;
-        },
-        logoutConfirm(){
-            this.$http.post(this.$api + '/logout',null,{
-            headers: {
-                'Authorization' : 'Bearer ' + localStorage.getItem('token')
-            }
-            }).then(response => {
-                console.log(response.data.message);
-                localStorage.removeItem('token');
-                this.$router.push({
-                    name: 'login',
-                });
-            }).catch(error => {
-                alert(error.response.data.message);
-            })
-        },
-        cancelLogout(){
-            this.dialog = false;
+        movePath(path){
+            this.$router.push(path);
         }
     }
 };
 </script>
 <style scoped>
-.fullheight{
-    min-height: 100vh !important;
-}
-.router{
-    text-decoration: none;
-    color: black;
-}
+
 </style>

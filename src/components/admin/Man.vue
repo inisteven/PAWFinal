@@ -143,6 +143,7 @@ export default {
             imagePathEdit: '',
             imagePathCreate: '',
             titleForm:'',
+            fileInput: '',
             inputType: 'Tambah',
             load: false,
             snackbar: false,
@@ -200,8 +201,6 @@ export default {
                 // }}
             ).then(response=>{
                 this.products = response.data.data
-                this.error_message = response.data.message
-                this.snackbar = true;
             })
         },
         getImage(e){
@@ -210,6 +209,8 @@ export default {
             let reader = new FileReader();
             reader.readAsDataURL(image);
             reader.onload = e =>{
+                if(this.inputType == 'Ubah')
+                    this.imagePathEdit = e.target.result;
                 this.imagePathCreate = e.target.result;
             }
 
@@ -293,6 +294,7 @@ export default {
         },
         cancel(){
             this.changePage();
+            this.resetForm();
         },
         update(){
             if(this.$refs.form.validate()){
@@ -315,8 +317,8 @@ export default {
                     this.color="green"
                     this.snackbar=true;
                     this.load = false;
-                    this.changePage();
                     this.readData();
+                    this.changePage();
                     this.resetForm();
                 }).catch(error=>{
                     this.error_message = error.response.data.message;
@@ -347,9 +349,8 @@ export default {
                     this.color="green"
                     this.snackbar=true;
                     this.load = false;
-                    this.changePage();
                     this.readData();
-                    this.resetForm();
+                    this.changePage();
 
                 }).catch(error=>{
                     this.error_message = error.response.data.message;
@@ -366,17 +367,10 @@ export default {
             this.imagePathEdit='';
             this.imagePathCreate='';
             this.resetForm();
-            this.readData();
         },
         resetForm(){
-            // this.form = {
-            //     name: null,
-            //     price: null,
-            //     stok: null,
-            //     description: null,
-            // };
             this.$refs.form.reset();
-            this.$refs.fileInput.value = null;
+            this.$refs.fileInput.value = '';
         },
     },
     mounted(){

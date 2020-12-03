@@ -1,6 +1,6 @@
 <template>
     <div class="Dashboard">
-        <v-navigation-drawer class="fullheight" width="300px" app fixed>
+        <v-navigation-drawer :color="warna" class="fullheight" width="300px" v-model="drawer" app >
             <v-list-item>
                 <v-list-item-content>
                     <img src="../../assets/logo.png" alt width="200px">
@@ -15,7 +15,7 @@
                     :to="item.to"
                 >
                     <v-list-item-content>
-                        <v-list-item-title class="pa-8">{{ item.title }}</v-list-item-title>
+                        <v-list-item-title style="color:#ffffff;" class="pa-5">{{ item.title }}</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
             </v-list>
@@ -49,6 +49,8 @@ export default{
         return{
             dialog:false,
             drawer: true,
+            warna: '#16294F',
+            warnaText: '#ffffff',
             items:[
                 { title: "Dashboard", to:"/admin-dashboard"},
                 { title: "Man", to: "/admin/man" },
@@ -62,19 +64,7 @@ export default{
             this.dialog = true;
         },
         logoutConfirm(){
-            this.$http.post(this.$api + '/logout',null,{
-            headers: {
-                'Authorization' : 'Bearer ' + localStorage.getItem('token')
-            }
-            }).then(response => {
-                console.log(response.data.message);
-                localStorage.removeItem('token');
-                this.$router.push({
-                    name: 'login',
-                });
-            }).catch(error => {
-                alert(error.response.data.message);
-            })
+            this.$router.push('/signIn');
         },
         cancelLogout(){
             this.dialog = false;
