@@ -129,6 +129,13 @@ const router = new VueRouter({
             meta: {title: "Confirmation"},
             component : importComponent('Confirm'),
         },
+        //profile
+        {
+            path : "/profile",
+            name : "Profile",
+            meta: {title: "Profile"},
+            component : importComponent('Profile'),
+        },
         
     ]
 });
