@@ -7,7 +7,8 @@
         <v-col
           v-for="item in kategori"
           :key="item.key"
-          class="col-md-4 col-sm-12"
+          class="col-md-4 col-sm-12 rounded-lg"
+          style="padding: 35px"
         >
           <v-hover v-slot="{ hover }">
             <v-card
@@ -15,7 +16,7 @@
               :class="{ 'on-hover': hover }"
               width="300px"
               height="100px"
-              class="text-center rounded-lg"
+              class="text-center rounded-lg align-items-center d-flex justify-content-center"
               @click="movePath(item.to)"
               style="cursor: pointer; margin-top: 150px"
             >

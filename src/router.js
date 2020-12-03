@@ -115,6 +115,13 @@ const router = new VueRouter({
             meta: {title: "Cart"},
             component : importComponent('cart'),
         },
+        //thankyou
+        {
+            path : "/thankyou",
+            name : "Thankyou",
+            meta: {title: "Thankyou"},
+            component : importComponent('Thankyou'),
+        },
         
     ]
 });

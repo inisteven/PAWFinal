@@ -101,11 +101,19 @@
                   />
                 </v-col>
               </v-row>
-              <v-card-actions>
-                <v-btn class="mr-5" depressed color="error" @click="cancel">
+              <v-card-actions class="justify-content-center">
+                <v-btn
+                  class="mr-5"
+                  depressed
+                  color="error"
+                  style="padding-left: 30px; padding-right: 30px"
+                  @click="cancel"
+                >
                   Cancel
                 </v-btn>
-                <v-btn depressed color="primary" @click="setForm"> Save </v-btn>
+                <v-btn depressed color="primary" @click="setForm">
+                  Add Products
+                </v-btn>
               </v-card-actions>
             </v-form>
           </v-container>
