@@ -13,10 +13,9 @@
                 <v-form v-model="validSignIn" ref="formSignIn">
                   <v-row>
                     <v-col class="col-xs-2">
-                      <subtitle-1>Email</subtitle-1>
                       <v-text-field
                         required
-                        solo 
+                        outlined
                         type="email"
                         v-model="email"  
                         :rules="emailRules"
@@ -26,10 +25,10 @@
                   </v-row>
                   <v-row>
                     <v-col class="col-xs-2">
-                      <subtitle-1>Password</subtitle-1>
+                      <!-- <subtitle-1>Password</subtitle-1> -->
                       <v-text-field 
                         required
-                        solo 
+                        outlined
                         type="password"
                         min="8"
                         v-model="password"  
@@ -54,7 +53,7 @@
         </v-row>
       </v-container>
     </div>
-    <v-snackbar v-model="snackbar" :color="color" timeout="2000" bottom>{{ error_message }}</v-snackbar>
+    <v-snackbar v-model="snackbar" :color="color" timeout="5000" bottom>{{ error_message }}</v-snackbar>
     <footer-component></footer-component>
   </div>
 </template>
