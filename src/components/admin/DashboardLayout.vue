@@ -20,6 +20,7 @@
           link
           tag="router-link"
           :to="item.to"
+          class="text-xl-h1"
         >
           <v-list-item-content>
             <v-list-item-title style="color: #ffffff" class="pa-5">{{
@@ -27,9 +28,10 @@
             }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item> </v-list
-      ><br /><br />
-      <v-btn text router @click="logout"
-        ><v-icon color="white">mdi-power</v-icon></v-btn
+      ><br /><br /><br/>
+      <v-divider></v-divider>
+      <v-btn text router @click="logout" class="white--text"
+        ><v-icon color="white">mdi-power</v-icon>Logout</v-btn
       >
     </v-navigation-drawer>
 
