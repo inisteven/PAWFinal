@@ -5,16 +5,16 @@
       <!-- <img src="@/assets/LandingPage.jpg" class="d-block w-100" alt="..." /> -->
       <v-row align="center" justify="center"> </v-row>
       <!-- <v-spacer></v-spacer> -->
-      <hr style="height:220pt; visibility:hidden;" />
+      <hr style="height: 220pt; visibility: hidden" />
       <div align="center">
         <h1 class="black--text font-weight-bold v-input">Cool Style, Cool Life</h1>
         <h3 class="black--text v-input2">Find your true style here</h3>
-        <br>
+        <br />
         <div class="my-2" align="center" justify="center">
           <v-btn depressed class="black white--text" href="#section2">SHOP NOW</v-btn>
         </div>
       </div>
-      <hr style="height:220pt; visibility:hidden;" />
+      <hr style="height: 220pt; visibility: hidden" />
     </div>
     <v-container class="lighten-5 mb-6 categori" id="section2">
       <v-row style="height: 150px">
@@ -91,22 +91,22 @@ export default {
 </script>
 
 <style>
-  .back {
-    background-image: url(../assets/LandingPage.jpg);
-    background-attachment: fixed;
-    background-size: cover;
-    position: center;
-    background-repeat: no-repeat;
-  }
-  html {
-    scroll-behavior: smooth;
-  }
-  .v-input {
-    font-size: 4.2em;
-    justify-content: center;
-  }
-  .v-input2 {
-    font-size: 2.2em;
-    justify-content: center;
-  }
+.back {
+  background-image: url(../assets/LandingPage.jpg);
+  background-attachment: fixed;
+  background-size: cover;
+  position: center;
+  background-repeat: no-repeat;
+}
+html {
+  scroll-behavior: smooth;
+}
+.v-input {
+  font-size: 4.2em;
+  justify-content: center;
+}
+.v-input2 {
+  font-size: 2.2em;
+  justify-content: center;
+}
 </style>

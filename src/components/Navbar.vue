@@ -19,25 +19,49 @@
       <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
         <ul class="navbar-nav ml-auto">
           <b-navbar-nav class="ml-auto" variant="dark">
-            <div v-if="!isLoggedIn">
+
+            <div v-if="isLoggedIn" style="margin-top: 20px; margin-right: -45px">
+              <v-btn v-model="username" text router to="/profile" small><v-icon>mdi-account</v-icon>Hi {{ user.first_name }}! </v-btn>
+
+              <!--<v-menu transition="slide-y-transition" bottom>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn class="black--text" text dark v-bind="attrs" v-on="on" v-model="username" text> <v-icon>mdi-account</v-icon>Hi {{ user.first_name }}! </v-btn>
+                </template>
+
+                <v-list>
+                  <v-list-item>
+                    <v-list-item-title>
+                      <v-btn text router to="/profile"><v-icon>mdi-account-settings</v-icon>Edit Profile</v-btn>
+                    </v-list-item-title>
+                  </v-list-item>
+
+                  <v-list-item>
+                    <v-list-item-title>
+                      <v-btn text router @click="logout"><v-icon>mdi-logout</v-icon>Logout</v-btn>
+                    </v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-menu>-->
+
+              <v-btn text router @click="logout" small><v-icon>mdi-logout</v-icon>Logout</v-btn>
+            </div>
+            <div v-else>
               <v-btn height="65px" text router to="/signIn">Sign in</v-btn>
               <v-btn height="65px" text router to="/signUp">Sign Up</v-btn>
             </div>
-            <div v-if="isLoggedIn">
-              <v-btn height="65px" v-model="username" text router to="/profile">Hi! {{ this.nama }}</v-btn>
-              <v-btn height="65px" text router @click="logout"><v-icon>mdi-logout</v-icon></v-btn>
-            </div>
+
             <div>
-              <b-nav-item router to="/cart">
-                <div v-if="isLoggedIn">
+              <b-nav-item v-if="isLoggedIn" router to="/cart">
+                <div>
                   <v-badge color="red" :content="jumlah">
                     <img :src="cart" class="align-top logo ml-10" alt="Logo" width="60px" />
                   </v-badge>
                 </div>
-                <div v-else>
-                  <img :src="cart" class="align-top logo ml-10" alt="Logo" width="60px" />
-                </div>
               </b-nav-item>
+              <b-nav-item v-else>
+                <div>
+                  <img :src="cart" class="align-top logo ml-10" alt="Logo" width="60px" /></div
+              ></b-nav-item>
             </div>
           </b-navbar-nav>
         </ul>
@@ -82,38 +106,39 @@ export default {
       fields: { value: "id", text: "text" },
       dialogLogout: false,
       idLogin: "",
-      isLoggedIn: true,
+      isLoggedIn: false,
       username: "",
-      //$nama: "Benny",
+      $nama: "Benny",
       image: image,
       cart: cart,
       search: "",
       jumlah: 10, //SELECT (jumlah) from cart where id = idLogin AND isPay = 0
+      items: [{ title: "Profile", to: "/profile" }],
     };
   },
   methods: {
     readData() {
       this.idLogin = localStorage.getItem("id");
       this.isLoggedIn = localStorage.getItem("isLoggedIn");
-      // var url = this.$api + "/user/" + localStorage.getItem("id");
-      // this.$http
-      //   .get(url, {
-      //     headers: {
-      //       Authorization: "Bearer " + localStorage.getItem("token"),
-      //     },
-      //   })
-      //   .then((response) => {
-      //     this.user = response.data.data;
+      var url = this.$api + "/user/" + localStorage.getItem("id");
+      this.$http
+        .get(url, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        })
+        .then((response) => {
+          this.user = response.data.data;
 
-      //     this.username = response.data.data.first_name;
-      //     console.log(this.username);
-      //     // this.first_name = response.data.data.first_name;
-      //   })
-      //   .catch((error) => {
-      //     this.error_message = error.response.data.message;
-      //     this.loadSnackbar("red", true);
-      //     // localStorage.removeItem('token')
-      //   });
+          this.username = response.data.data.first_name;
+          console.log(this.username);
+          // this.first_name = response.data.data.first_name;
+        })
+        .catch((error) => {
+          this.error_message = error.response.data.message;
+          this.loadSnackbar("red", true);
+          // localStorage.removeItem('token')
+        });
     },
     logout() {
       this.dialogLogout = true;
@@ -152,4 +177,6 @@ export default {
   font-weight: normal;
   color: rgba(0, 0, 0, 0.4);
 }
+
+
 </style>

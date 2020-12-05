@@ -5,7 +5,7 @@
       <v-container class="signup">
         <v-row align="center" justify="center">
           <v-col class="col-md-5 col-xs-0">
-            <v-card  style="padding: 30px; opacity: 0.9">
+            <v-card style="padding: 30px; opacity: 0.9">
               <v-card-title>
                 <div class="text-center mb-5">
                   <h2>Create Account</h2>
@@ -56,90 +56,81 @@
       </v-container>
     </div>
     <v-snackbar v-model="snackbar" :color="color" timeout="2000" bottom>{{ error_message }}</v-snackbar>
-    <footer-component></footer-component> 
+    <footer-component></footer-component>
   </div>
 </template>
 
 <script>
-  import Header from './Navbar.vue';
-  import Footer from './Footer.vue';
-  export default {
-      data(){
-        return {
-          snackbar : false,
-          error_message: '',
-          color: '',
-          validSignUp: false,
-          firstName: '',
-          firstRules:[
-                (v) => !!v || 'First name is required',
-          ],
-          lastName: '',
-          lastRules:[
-                (v) => !!v || 'Last name is required',
-          ],
-          email: '',
-          emailRules:[
-                (v) => !!v || 'Email is required',
-                (v) => /.+@.+\..+/.test(v) || 'Email is invalid'
-            ],
-          password: '',
-          passwordRules:[
-                (v)=> !!v || 'Password is required',
-                (v)=> (v && v.length >=6) || 'Password must be at least 6 characters'
-          ],
-          confirmPassword: '',
-          confirmPasswordRules:[
-                (v)=> !!v || 'Confirm password is required',
-                (v)=> (v && v.length >=6) || 'Confirm password must be at least 6 characters',
-                (v)=> v===this.password || 'Confirm password does not match'
-          ],
-
-        }        
-      },
-      components: {
-        'navbar-component' : Header,
-        'footer-component' : Footer,
-      },
-      methods:{
-        submit(){
-          if(this.$refs.formSignUp.validate()){
-            this.$http.post(this.$api + '/register', {
-                first_name: this.firstName,
-                last_name: this.lastName,
-                email: this.email,
-                password: this.password
-            }).then(response=>{
-                this.error_message = response.data.message;
-                this.color="green"
-                this.snackbar=true;
-                this.load=false;
-                this.cancel();
-                this.$router.push({
-                    name: 'Sign In'
-                })
-            }).catch(error => {
-                this.error_message=error.response.data.message;
-                this.color="red"
-                this.snackbar=true;
-                localStorage.removeItem('token')
-                this.load = false
-            })
-          }
-        },
-        cancel(){
-          this.$refs.formSignUp.reset();
-        }
+import Header from "./Navbar.vue";
+import Footer from "./Footer.vue";
+export default {
+  data() {
+    return {
+      snackbar: false,
+      error_message: "",
+      color: "",
+      validSignUp: false,
+      firstName: "",
+      firstRules: [(v) => !!v || "First name is required"],
+      lastName: "",
+      lastRules: [(v) => !!v || "Last name is required"],
+      email: "",
+      emailRules: [(v) => !!v || "Email is required", (v) => /.+@.+\..+/.test(v) || "Email is invalid"],
+      password: "",
+      passwordRules: [(v) => !!v || "Password is required", (v) => (v && v.length >= 6) || "Password must be at least 6 characters"],
+      confirmPassword: "",
+      confirmPasswordRules: [(v) => !!v || "Confirm password is required", (v) => (v && v.length >= 6) || "Confirm password must be at least 6 characters", (v) => v === this.password || "Confirm password does not match"],
+    };
+  },
+  components: {
+    "navbar-component": Header,
+    "footer-component": Footer,
+  },
+  methods: {
+    submit() {
+      if (this.$refs.formSignUp.validate()) {
+        this.$http
+          .post(this.$api + "/register", {
+            first_name: this.firstName,
+            last_name: this.lastName,
+            email: this.email,
+            password: this.password,
+          })
+          .then((response) => {
+            this.error_message = response.data.message;
+            this.color = "green";
+            this.snackbar = true;
+            this.load = false;
+            this.cancel();
+            this.$router.push({
+              name: "Sign In",
+            });
+          })
+          .catch((error) => {
+            this.error_message = error.response.data.message;
+            this.color = "red";
+            this.snackbar = true;
+            localStorage.removeItem("token");
+            this.load = false;
+          });
       }
-  }
+    },
+    cancel() {
+      this.$refs.formSignUp.reset();
+    },
+  },
+};
 </script>
 <style scoped>
+.back {
+  background-image: url(../assets/signUp.jpg);
+  background-attachment: fixed;
+  background-size: cover;
+  position: center;
+  background-repeat: no-repeat;
+}
 
-.back{
-    background-image: url(../assets/signUp.jpg);
-    background-attachment: fixed;
-    background-size: cover;
-    position: center;
-    background-repeat: no-repeat;
+.v-text-field input {
+  font-size: 1.2em;
 }
 </style>

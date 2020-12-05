@@ -265,3 +265,9 @@ export default {
   },
 };
 </script>
+
+<style>
+.v-text-field input {
+  font-size: 16px;
+}
+</style>
