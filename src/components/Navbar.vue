@@ -19,7 +19,6 @@
       <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
         <ul class="navbar-nav ml-auto">
           <b-navbar-nav class="ml-auto" variant="dark">
-
             <div v-if="isLoggedIn" style="margin-top: 20px; margin-right: -45px">
               <v-btn v-model="username" text router to="/profile" small><v-icon>mdi-account</v-icon>Hi {{ user.first_name }}! </v-btn>
 
@@ -54,13 +53,13 @@
               <b-nav-item v-if="isLoggedIn" router to="/cart">
                 <div>
                   <v-badge color="red" :content="jumlah">
-                    <img :src="cart" class="align-top logo ml-10" alt="Logo" width="60px" />
+                    <img :src="cart" class="align-top logo ml-10" alt="Logo" width="40px" />
                   </v-badge>
                 </div>
               </b-nav-item>
               <b-nav-item v-else>
                 <div>
-                  <img :src="cart" class="align-top logo ml-10" alt="Logo" width="60px" /></div
+                  <img :src="cart" class="align-top logo ml-10" alt="Logo" width="40px" /></div
               ></b-nav-item>
             </div>
           </b-navbar-nav>
@@ -99,7 +98,7 @@
 
 <script>
 import image from "../assets/logoHitam.png";
-import cart from "../assets/cart.png";
+import cart from "../assets/cart2.png";
 export default {
   data: function () {
     return {
@@ -177,6 +176,4 @@ export default {
   font-weight: normal;
   color: rgba(0, 0, 0, 0.4);
 }
-
-
 </style>
