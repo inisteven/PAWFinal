@@ -17,7 +17,7 @@
               </div>
 
               <br />
-              <input accept="image/png, image/jpeg, image/jpg" type="file" @change="pilihImage" class="form-control md-5" />
+              <input accept="image/png, image/jpeg, image/jpg" type="file" @change="pilihImage" class="form-control md-4" />
               <br />
               <v-btn class="black white--text" small style="margin-left: 35px" @click="uploadImage">CHANGE</v-btn>
             </form>
@@ -83,9 +83,9 @@
           </v-row>
         </div>
       </div>
-      <div class="btn justify-content-right">
-        <v-btn @click="cancel">Cancel</v-btn>
-        <v-btn @click="save">Save</v-btn>
+      <div class="btn  d-flex justify-end mb-4">
+        <v-btn @click="cancel" style="margin-right:20px">Cancel</v-btn>
+        <v-btn @click="save" class="success">Save</v-btn>
       </div>
     </div>
     <v-snackbar v-model="snackbar" :color="color" timeout="2000" bottom>{{ error_message }}</v-snackbar>

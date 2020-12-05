@@ -85,7 +85,7 @@ const router = new VueRouter({
         //detail
         {
             path : "/detail",
-            name : "Detail Product",
+            name : "DetailProduct",
             meta: {title: "Detail Product"},
             component : importComponent('DetailProduct'),
         },

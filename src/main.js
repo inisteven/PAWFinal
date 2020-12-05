@@ -12,6 +12,7 @@ import axios from 'axios';
 
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
+//Vue.component('pagination', require('laravel-vue-pagination'));
 // Vue.use(VueResource)
 Vue.use(BootstrapVue)
 
