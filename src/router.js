@@ -143,6 +143,20 @@ const router = new VueRouter({
             meta: {title: "Detail Product"},
             component : importComponent('DetailProductMan'),
         },
+        //detail iseng berhadiah
+        {
+            path : "/detailWoman/:id_produkW",
+            name : "DetailProduct Woman",
+            meta: {title: "Detail Product Woman"},
+            component : importComponent('DetailProductWoman'),
+        },
+        //detail iseng berhadiah
+        {
+            path : "/detailAcc/:id_aksesoris",
+            name : "DetailProduct Aksesoris",
+            meta: {title: "Detail Product Aksesoris"},
+            component : importComponent('DetailProductAcc'),
+        },
         
     ]
 });

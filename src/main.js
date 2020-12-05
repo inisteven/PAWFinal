@@ -7,6 +7,7 @@ import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import VueNumberInput from '@chenfengyuan/vue-number-input';
 import axios from 'axios';
 
 
@@ -14,6 +15,8 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
 //Vue.component('pagination', require('laravel-vue-pagination'));
 // Vue.use(VueResource)
+Vue.component('vue-number-input', VueNumberInput);
+Vue.use(VueNumberInput);
 Vue.use(BootstrapVue)
 
 Vue.use(IconsPlugin)

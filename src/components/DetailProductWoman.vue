@@ -5,17 +5,17 @@
     <v-container style="margin-top: 60px; margin-bottom: 150px">
       <v-row align="center" justify="center">
         <v-col class="sm-5 align-content-center d-flex justify-content-center">
-          <img :src="'http://127.0.0.1:8000/products/' + product.gambar_produkM" alt="Image" width="250px" />
+          <img :src="'http://127.0.0.1:8000/products/' + product.gambar_produkW" alt="Image" width="250px" />
         </v-col>
 
         <v-col class="md-12">
-          <h2>{{ product.nama_produkM }}</h2>
+          <h2>{{ product.nama_produkW }}</h2>
           <v-divider></v-divider>
-          <subtitle-1>{{ product.deskripsi_produkM }}</subtitle-1>
+          <subtitle-1>{{ product.deskripsi_produkW }}</subtitle-1>
           <v-spacer></v-spacer>
           <br />
 
-          <h3 class="red--text">IDR {{ product.harga_produkM }}</h3>
+          <h3 class="red--text">IDR {{ product.harga_produkW }}</h3>
           <br />
           <v-row class="md-6"
             ><v-col class="d-flex" cols="12" sm="4">
@@ -42,7 +42,7 @@ export default {
     quantity: 0,
     name: "detail",
     pesan: {},
-    id_produkM: localStorage.getItem("id_produkM"),
+    id_produkM: localStorage.getItem("id_produkW"),
     size: ["S", "M", "L", "XL"],
     stokRules: [(v) => !!v || "Quantity is required!", (v) => v < 1 || "Input harus lebih dari 0", (v) => v > this.stok || "Stok tidak cukup"],
   }),
@@ -57,7 +57,7 @@ export default {
       console.log(this.pesanan);
     },
     readData() {
-      var url = this.$api + "/man/" + this.$route.params.id_produkM;
+      var url = this.$api + "/woman/" + this.$route.params.id_produkW;
       this.$http
         .get(url, {
           headers: {
