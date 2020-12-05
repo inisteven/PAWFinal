@@ -10,7 +10,7 @@
       <v-container>
         <v-row class="text-center">
           <v-col v-for="item in filteredList" :key="item.nama_produkM" class="col-sm-12 col-md-4">
-            <router-link :to="'/detail/' + item.id_produkM">
+            <router-link :to="'/detailMan/' + item.id_produkM">
               <img :src="'http://127.0.0.1:8000/products/' + item.gambar_produkM" alt="Image" width="250px" />
             </router-link>
             <h5>{{ item.nama_produkM }}</h5>

@@ -136,6 +136,13 @@ const router = new VueRouter({
             meta: {title: "Profile"},
             component : importComponent('Profile'),
         },
+        //detail iseng berhadiah
+        {
+            path : "/detailMan/:id_produkM",
+            name : "DetailProduct",
+            meta: {title: "Detail Product"},
+            component : importComponent('DetailProductMan'),
+        },
         
     ]
 });
