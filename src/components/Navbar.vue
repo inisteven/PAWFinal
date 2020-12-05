@@ -1,36 +1,18 @@
 <template>
   <header>
     <b-nav class="navbar navbar-expand-md">
-      <div
-        class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2"
-      >
+      <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <v-text-field
-              v-model="search"
-              hide-details
-              prepend-icon="mdi-magnify"
-              label="Search our item"
-              single-line
-            ></v-text-field>
+            <v-text-field v-model="search" hide-details prepend-icon="mdi-magnify" label="Search our item" single-line></v-text-field>
           </li>
         </ul>
       </div>
       <div class="mx-auto order-0">
         <b-navbar-brand href="#">
-          <img
-            :src="image"
-            class="d-inline-block align-top logo"
-            alt="Logo"
-            width="220px"
-          />
+          <img :src="image" class="d-inline-block align-top logo" alt="Logo" width="220px" />
         </b-navbar-brand>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target=".dual-collapse2"
-        >
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
           <span class="navbar-toggler-icon"></span>
         </button>
       </div>
@@ -41,19 +23,21 @@
               <v-btn height="65px" text router to="/signIn">Sign in</v-btn>
               <v-btn height="65px" text router to="/signUp">Sign Up</v-btn>
             </div>
-            <div v-else>
-            <b-nav-item router to="/cart">
-              <v-badge
-                color="red"
-                :content="jumlah">
-                <img
-                  :src="cart"
-                  class="align-top logo ml-10"
-                  alt="Logo"
-                  width="60px"
-                />
-              </v-badge>
-            </b-nav-item>
+            <div v-if="isLoggedIn">
+              <v-btn height="65px" v-model="username" text router to="/profile">Hi! {{ this.nama }}</v-btn>
+              <v-btn height="65px" text router @click="logout"><v-icon>mdi-logout</v-icon></v-btn>
+            </div>
+            <div>
+              <b-nav-item router to="/cart">
+                <div v-if="isLoggedIn">
+                  <v-badge color="red" :content="jumlah">
+                    <img :src="cart" class="align-top logo ml-10" alt="Logo" width="60px" />
+                  </v-badge>
+                </div>
+                <div v-else>
+                  <img :src="cart" class="align-top logo ml-10" alt="Logo" width="60px" />
+                </div>
+              </b-nav-item>
             </div>
           </b-navbar-nav>
         </ul>
@@ -75,6 +59,17 @@
         </v-row>
       </v-container>
     </v-app-bar>
+
+    <v-dialog v-model="dialogLogout" max-width="400px">
+      <v-card>
+        <v-card-title>Do you sure want to logout ?</v-card-title>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-2" @click="cancelLogout" class="mr-3 mb-5">No</v-btn>
+          <v-btn color="grey" @click="logoutConfirm" class="mr-3 mb-5">Yes</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </header>
 </template>
 
@@ -85,24 +80,58 @@ export default {
   data: function () {
     return {
       fields: { value: "id", text: "text" },
-      idLogin: '',
-      isLoggedIn: '',
-      $nama: 'Benny',
+      dialogLogout: false,
+      idLogin: "",
+      isLoggedIn: true,
+      username: "",
+      //$nama: "Benny",
       image: image,
       cart: cart,
       search: "",
       jumlah: 10, //SELECT (jumlah) from cart where id = idLogin AND isPay = 0
     };
   },
-  methods:{
-    readData(){
-      this.idLogin = localStorage.getItem('id');
+  methods: {
+    readData() {
+      this.idLogin = localStorage.getItem("id");
       this.isLoggedIn = localStorage.getItem("isLoggedIn");
-    }
+      // var url = this.$api + "/user/" + localStorage.getItem("id");
+      // this.$http
+      //   .get(url, {
+      //     headers: {
+      //       Authorization: "Bearer " + localStorage.getItem("token"),
+      //     },
+      //   })
+      //   .then((response) => {
+      //     this.user = response.data.data;
+
+      //     this.username = response.data.data.first_name;
+      //     console.log(this.username);
+      //     // this.first_name = response.data.data.first_name;
+      //   })
+      //   .catch((error) => {
+      //     this.error_message = error.response.data.message;
+      //     this.loadSnackbar("red", true);
+      //     // localStorage.removeItem('token')
+      //   });
+    },
+    logout() {
+      this.dialogLogout = true;
+    },
+
+    logoutConfirm() {
+      localStorage.removeItem("token");
+      localStorage.removeItem("id");
+      this.$router.push("/signIn");
+      this.isLoggedIn = false;
+    },
+    cancelLogout() {
+      this.dialogLogout = false;
+    },
   },
-  mounted(){
+  mounted() {
     this.readData();
-  }
+  },
 };
 </script>
 

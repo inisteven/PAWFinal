@@ -3,9 +3,7 @@
     <navbar-component></navbar-component>
     <br />
 
-    <h1 class="font-weight-black" style="margin-left: 75px; margin-top: 25px">
-      EDIT PROFILE
-    </h1>
+    <h1 class="font-weight-black" style="margin-left: 75px; margin-top: 25px">EDIT PROFILE</h1>
     <v-divider style="border-width: 1px" color="black"></v-divider>
     <div class="container">
       <div class="row">
@@ -15,30 +13,13 @@
             <v-spacer></v-spacer><br />
             <form method="POST" enctype="multipart/form-data">
               <div v-if="imageThumbnail" @change="pilihImage">
-                <img
-                  :src="imageThumbnail"
-                  height="150"
-                  width="150"
-                  class="img-flued img-rounded"
-                  @change="pilihImage"
-                />
+                <img :src="imageThumbnail" height="150" width="150" class="img-flued img-rounded" @change="pilihImage" />
               </div>
 
               <br />
-              <input
-                accept="image/png, image/jpeg, image/jpg"
-                type="file"
-                @change="pilihImage"
-                class="form-control md-5"
-              />
+              <input accept="image/png, image/jpeg, image/jpg" type="file" @change="pilihImage" class="form-control md-5" />
               <br />
-              <v-btn
-                class="black white--text"
-                small
-                style="margin-left: 35px"
-                @click="uploadImage"
-                >CHANGE</v-btn
-              >
+              <v-btn class="black white--text" small style="margin-left: 35px" @click="uploadImage">CHANGE</v-btn>
             </form>
           </div>
         </div>
@@ -53,46 +34,25 @@
                   <v-card-body>
                     <h3>Account Information</h3>
                     <v-layout>
-                      <v-form
-                        v-model="validFormName"
-                        ref="formName"
-                        class="d-flex flex-row mb-2"
-                      >
+                      <v-form v-model="validFormName" ref="formName" class="d-flex flex-row mb-2">
                         <div class="col-md-9">
                           <body-1>First Name</body-1>
-                          <v-text-field
-                            :rules="firstRules"
-                            v-model="first_name"
-                            solo-inverted
-                            required
-                          ></v-text-field>
+                          <v-text-field :rules="firstRules" v-model="first_name" solo-inverted required></v-text-field>
                         </div>
                         <div class="col-md-9">
                           <body-1>Last Name</body-1>
-                          <v-text-field
-                            :rules="lastRules"
-                            v-model="last_name"
-                            solo-inverted
-                            required
-                          ></v-text-field>
+                          <v-text-field :rules="lastRules" v-model="last_name" solo-inverted required></v-text-field>
                         </div>
                       </v-form>
                     </v-layout>
                     <v-layout>
                       <v-flex>
                         <body-1>Email</body-1>
-                        <v-text-field
-                          v-model="email"
-                          solo-inverted
-                          disabled
-                        ></v-text-field>
+                        <v-text-field v-model="email" solo-inverted disabled></v-text-field>
                       </v-flex>
                     </v-layout>
 
-                    <v-checkbox
-                      v-model="checkbox"
-                      label="Change Password ?"
-                    ></v-checkbox>
+                    <v-checkbox v-model="checkbox" label="Change Password ?"></v-checkbox>
 
                     <div v-show="checkbox">
                       <h3>Change Password</h3>
@@ -100,35 +60,17 @@
                         <v-layout>
                           <v-flex>
                             <body-1>Current Password</body-1>
-                            <v-text-field
-                              v-model="oldPassword"
-                              type="password"
-                              :rules="passwordRules"
-                              solo-inverted
-                              required
-                            ></v-text-field>
+                            <v-text-field v-model="oldPassword" type="password" :rules="passwordRules" solo-inverted required></v-text-field>
                           </v-flex>
                           <v-flex>
                             <body-1>New Password*</body-1>
-                            <v-text-field
-                              v-model="newPassword"
-                              :rules="passwordRules"
-                              type="password"
-                              solo-inverted
-                              required
-                            ></v-text-field>
+                            <v-text-field v-model="newPassword" :rules="passwordRules" type="password" solo-inverted required></v-text-field>
                           </v-flex>
                         </v-layout>
                         <v-layout>
                           <v-flex>
                             <body-1>Confirm New Password*</body-1>
-                            <v-text-field
-                              v-model="newConfirmPassword"
-                              :rules="confirmPasswordRules"
-                              type="password"
-                              solo-inverted
-                              required
-                            ></v-text-field>
+                            <v-text-field v-model="newConfirmPassword" :rules="confirmPasswordRules" type="password" solo-inverted required></v-text-field>
                           </v-flex>
                         </v-layout>
                       </v-form>
@@ -146,9 +88,7 @@
         <v-btn @click="save">Save</v-btn>
       </div>
     </div>
-    <v-snackbar v-model="snackbar" :color="color" timeout="2000" bottom>{{
-      error_message
-    }}</v-snackbar>
+    <v-snackbar v-model="snackbar" :color="color" timeout="2000" bottom>{{ error_message }}</v-snackbar>
     <footer-component></footer-component>
   </div>
 </template>
@@ -167,8 +107,7 @@ export default {
       snackbar: "",
       color: "",
       error_message: "",
-      imageThumbnail:
-        "https://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png",
+      imageThumbnail: "https://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png",
       email: "",
       first_name: "",
       firstRules: [(v) => !!v || "First name is required"],
@@ -176,18 +115,9 @@ export default {
       lastRules: [(v) => !!v || "Last name is required"],
       oldPassword: "",
       newPassword: "",
-      passwordRules: [
-        (v) => !!v || "Password is required",
-        (v) => (v && v.length >= 6) || "Password must be at least 6 characters",
-      ],
+      passwordRules: [(v) => !!v || "Password is required", (v) => (v && v.length >= 6) || "Password must be at least 6 characters"],
       newConfirmPassword: "",
-      confirmPasswordRules: [
-        (v) => !!v || "Confirm password is required",
-        (v) =>
-          (v && v.length >= 6) ||
-          "Confirm password must be at least 6 characters",
-        (v) => v === this.newPassword || "Confirm password does not match",
-      ],
+      confirmPasswordRules: [(v) => !!v || "Confirm password is required", (v) => (v && v.length >= 6) || "Confirm password must be at least 6 characters", (v) => v === this.newPassword || "Confirm password does not match"],
     };
   },
   methods: {
@@ -313,10 +243,7 @@ export default {
     },
     save() {
       if (this.checkbox) {
-        if (
-          this.$refs.formPassword.validate() &&
-          this.$refs.formName.validate()
-        ) {
+        if (this.$refs.formPassword.validate() && this.$refs.formName.validate()) {
           this.updatePasswordAndData();
         }
       } else {
