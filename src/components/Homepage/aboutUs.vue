@@ -187,7 +187,6 @@
 </template>
 
 <script>
-//import image from "../../assets/fashion.jpg";
 import Header from "../Navbar.vue";
 import Footer from "../Footer.vue";
 export default {

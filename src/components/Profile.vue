@@ -12,7 +12,10 @@
             <h3>Upload Picture</h3>
             <v-spacer></v-spacer><br />
             <form method="POST" enctype="multipart/form-data">
-              <div v-if="imageThumbnail" @change="pilihImage">
+              <div v-if="image != ''">
+                <img :src="urlImage" height="150" width="150" class="img-flued img-rounded" @change="pilihImage" />
+              </div>
+              <div v-else @change="pilihImage">
                 <img :src="imageThumbnail" height="150" width="150" class="img-flued img-rounded" @change="pilihImage" />
               </div>
 
@@ -103,6 +106,7 @@ export default {
       validFormPassword: false,
       checkbox: false,
       image: "",
+      urlImage: "",
       user: "",
       snackbar: "",
       color: "",
@@ -137,6 +141,9 @@ export default {
           console.log(this.first_name);
           this.last_name = response.data.data.last_name;
           this.email = response.data.data.email;
+          this.image  = response.data.data.image;
+          this.urlImage= "http://127.0.0.1:8000/profile/" + this.image;
+          console.log(this.urlImage);
           // this.first_name = response.data.data.first_name;
         })
         .catch((error) => {
@@ -156,6 +163,7 @@ export default {
       reader.readAsDataURL(this.image);
       reader.onload = (e) => {
         this.imageThumbnail = e.target.result;
+        this.urlImage = e.target.result;
       };
     },
     updateData() {

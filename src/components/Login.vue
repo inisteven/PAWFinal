@@ -15,7 +15,7 @@
                     <v-col class="col-xs-2">
                       <v-text-field
                         required
-                        outlined
+                        solo
                         type="email"
                         v-model="email"  
                         :rules="emailRules"
@@ -28,7 +28,7 @@
                       <!-- <subtitle-1>Password</subtitle-1> -->
                       <v-text-field 
                         required
-                        outlined
+                        solo
                         type="password"
                         min="8"
                         v-model="password"  
