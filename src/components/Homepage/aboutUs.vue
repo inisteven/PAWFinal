@@ -72,9 +72,9 @@
                 <v-card shaped flat class="text-left ma-3">
                   <v-col class="shrink">
                     <v-img
-                      :src="require('@/assets/started.jpg')"
+                      :src="require('@/assets/maps.png')"
                       alt="..."
-                      aspect-ratio="1"
+                      height="265"
                     ></v-img>
                   </v-col>
                   <br />
@@ -98,6 +98,7 @@
               <v-layout column>
                 <v-card shaped flat class="text-left ma-3">
                   <v-col>
+                    <br /><br />
                     <v-card-title bold class="justify-left">
                       <div style="color: black; font-weight: bold">LOCATION</div>
                     </v-card-title>
@@ -113,9 +114,9 @@
                   <br /><br /><br />
                   <v-col class="shrink">
                     <v-img
-                      :src="require('@/assets/worker.jpg')"
+                      :src="require('@/assets/started.jpg')"
                       alt="..."
-                      aspect-ratio="1"
+                      height="265"
                     ></v-img>
                   </v-col>
                 </v-card>
@@ -124,45 +125,38 @@
           </v-layout>
         </v-container>
         <br /><br /><br />
-        <v-row align="center" justify="center">
-          <v-card
-            shaped
-            style="background-color: whitesmoke; width: 200px; height: 300px"
-          >
+        <v-row class="d-flex justify-space-around mb-6">
+          <v-card shaped style="background-color: whitesmoke; width: 270px; height: 350px">
             <v-card-title style="font-weight: bold; color: gray">
-              Style Idea
-            </v-card-title>
+              <h2 style="color: #4f4f4f">Style Idea</h2>
+            </v-card-title> 
             <v-card-subtitle style="color: grey">
-              We continue to develop our designs to be the best and comfortable to wear.
+              <h6>We continue to develop our designs to be the best and comfortable to wear.
               The ideas of our designs come from research in various countries. We also
-              invite design experts to develop our products.
+              invite design experts to develop our products.</h6>
             </v-card-subtitle>
           </v-card>
-          <v-card
-            shaped
-            style="background-color: whitesmoke; width: 200px; height: 300px"
-          >
+
+          <v-card shaped style="background-color: whitesmoke; width: 270px; height: 350px">
             <v-card-title style="font-weight: bold; color: gray">
-              Comfy To Wear
-            </v-card-title>
+              <h2 style="color: #4f4f4f">Comfy to Wear</h2>
+            </v-card-title>  
             <v-card-subtitle style="color: grey">
-              We combine the designs and materials we collect to make a product that is
+              <h6>We combine the designs and materials we collect to make a product that is
               comfortable to wear. We also organize all of our products into sections, so
-              that you can choose our products according to your wishes.
+              that you can choose our products according to your wishes.</h6>
             </v-card-subtitle>
           </v-card>
-          <v-card
-            shaped
-            style="background-color: whitesmoke; width: 200px; height: 300px"
-          >
+
+          <v-card shaped style="background-color: whitesmoke; width: 270px; height: 350px">
             <v-card-title style="font-weight: bold; color: gray">
-              Chead Prices
+              <h2 style="color: #4f4f4f">Cheap Prices</h2>
             </v-card-title>
             <v-card-subtitle style="color: grey">
-              Beside we develop our products with the best material and the best design we
+              <h6>Beside we develop our products with the best material and the best design we
               also selling our products with low prices. Why? we really care people's
               fashion nowadays and we believe we produce the best fashion all over the
-              world.
+              world.</h6>
             </v-card-subtitle>
           </v-card>
         </v-row>
