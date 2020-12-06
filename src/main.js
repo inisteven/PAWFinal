@@ -25,6 +25,14 @@ Vue.prototype.$http = axios;
 Vue.prototype.$api = 'http://127.0.0.1:8000/api';
 Vue.prototype.$url = 'http://127.0.0.1:8000/';
 
+import * as VueGoogleMaps from 'vue2-google-maps'
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: 'AIzaSyD-jOAG594kcYrD3ZQGrGShEFvTrur07CY'
+  },
+  installComponents: true
+})
+
 new Vue({
   vuetify,
   router,

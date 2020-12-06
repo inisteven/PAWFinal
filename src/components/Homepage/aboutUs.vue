@@ -64,6 +64,7 @@
                             </v-col>
                         </v-row>
                     </v-container> -->
+                    
         <v-container fluid>
           <v-layout justify-space-around>
             <v-flex xs5>
@@ -71,11 +72,12 @@
                 <br />
                 <v-card shaped flat class="text-left ma-3">
                   <v-col class="shrink">
-                    <v-img
+                    <!-- <v-img
                       :src="require('@/assets/maps.png')"
                       alt="..."
                       height="265"
-                    ></v-img>
+                    ></v-img> -->
+                    <Map />
                   </v-col>
                   <br />
                   <v-col>
@@ -117,6 +119,7 @@
                       :src="require('@/assets/started.jpg')"
                       alt="..."
                       height="265"
+                      width="400"
                     ></v-img>
                   </v-col>
                 </v-card>
@@ -179,8 +182,8 @@
     <footer-component></footer-component>
   </div>
 </template>
-
 <script>
+import Map from './Map';
 import Header from "../Navbar.vue";
 import Footer from "../Footer.vue";
 export default {
@@ -188,6 +191,7 @@ export default {
   components: {
     "navbar-component": Header,
     "footer-component": Footer,
+    Map
   },
 };
 </script>
