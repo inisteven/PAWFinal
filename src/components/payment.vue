@@ -15,9 +15,10 @@
                 <body-1>Name</body-1>
 
                 <v-text-field
-                  v-model="name"
+                  v-model="fullname"
                   label="Name"
                   solo-inverted
+                  disabled
                   required
                 ></v-text-field>
               </v-flex>
@@ -108,7 +109,7 @@
         </v-row>
       </v-container>
       <div class="my-2" align="center" justify="center">
-        <v-btn class="black white--text" router to="/confirmation">OK</v-btn>
+        <v-btn class="black white--text" @click="save" router to="/confirmation">OK</v-btn>
       </div>
       <br /><br />
     </v-container>
@@ -120,9 +121,68 @@
 import Header from "@/components/Navbar.vue";
 import Footer from "./Footer.vue";
 export default {
+  data: () => ({
+    load: false,
+    user: [],
+    phoneNumber: '',
+    address: '',
+    city: '',
+    state: '',
+    postalCode: '',
+    order: new FormData,
+  }),
+  methods: {
+    readData() {
+      var url = this.$api + "/user/" + localStorage.getItem('id');
+      this.$http
+        .get(url, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        })
+        .then((response) => {
+          this.user = response.data.data;
+          console.log(this.user);
+        });
+    },
+    save() {
+      this.order.append("id_user", localStorage.getItem('id'));
+      this.order.append("address", this.address);
+      this.order.append("city", this.city);
+      this.order.append("province", this.state);
+      this.order.append("postal_code", this.postalCode);
+      this.order.append("phoneNumber", this.phoneNumber);
+      this.order.append("total_harga", 0);
+      this.order.append("bukti_tf", "-");
+      
+      var url = this.$api + "/order";
+      this.load = true;
+      this.$http
+        .post(url, this.order)
+        .then((response) => {
+          this.error_message = response.data.message;
+          this.snackbar = false;
+          this.readData();
+        })
+        .catch((error) => {
+          this.error_message = error.response.data.message;
+          this.color = "red";
+          this.snackbar = true;
+          this.load = false;
+        });
+    }
+  },
   components: {
     "navbar-component": Header,
     "footer-component": Footer,
   },
+  mounted() {
+    this.readData();
+  },
+  computed: {
+    fullname: function(){
+      return this.user.first_name + ' ' + this.user.last_name;
+    }
+  }
 };
 </script>
