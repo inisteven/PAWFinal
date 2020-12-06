@@ -105,7 +105,7 @@
                       <div style="color: black; font-weight: bold">LOCATION</div>
                     </v-card-title>
                     <v-card-subtitle>
-                      <div style="color: black">
+                      <div style="color: grey">
                         Our company has spread all over the world, more than 50 branches
                         and our first company is in the capital city of Indonesia,
                         Jakarta. Not just that but we also planning to spread our company
