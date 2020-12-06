@@ -89,7 +89,6 @@
   color: #dfdfdf;
   margin-top: 150dp;
   font-size: 12px;
-  height: 320px;
   left: 0px;
   width: 100%;
   display: grid;
