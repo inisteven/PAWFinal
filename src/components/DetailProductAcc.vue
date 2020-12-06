@@ -5,7 +5,12 @@
     <v-container style="margin-top: 60px; margin-bottom: 150px">
       <v-row align="center" justify="center">
         <v-col class="sm-5 align-content-center d-flex justify-content-center">
-          <img :src="'http://127.0.0.1:8000/products/' + product.gambar_aksesoris" alt="Image" width="250px" />
+          <img
+            :src="'http://127.0.0.1:8000/products/' + product.gambar_aksesoris"
+            alt="Image"
+            width="250px"
+            height="360px"
+          />
         </v-col>
 
         <v-col class="md-12">
@@ -22,14 +27,24 @@
               <v-select v-model="pesan.size" :items="size" label="Size" solo></v-select>
             </v-col>
             <v-col class="d-flex" cols="12" sm="4">
-              <v-text-field align="center" v-model.number="pesan.quantity" type="number" :min="1" :max="product.stok" :rules="stokRules" solo 
-              prepend-inner-icon="mdi-minus"
-              @click:prepend-inner="decrement" 
-              append-icon="mdi-plus" 
-              @click:append="increment"></v-text-field>
+              <v-text-field
+                align="center"
+                v-model.number="pesan.quantity"
+                type="number"
+                :min="1"
+                :max="product.stok"
+                :rules="stokRules"
+                solo
+                prepend-inner-icon="mdi-minus"
+                @click:prepend-inner="decrement"
+                append-icon="mdi-plus"
+                @click:append="increment"
+              ></v-text-field>
             </v-col>
           </v-row>
-          <v-btn class="black white--text" @click="pesanan" text router to="/cart"> ADD TO CART </v-btn>
+          <v-btn class="black white--text" @click="pesanan" text router to="/cart">
+            ADD TO CART
+          </v-btn>
         </v-col>
       </v-row>
     </v-container>
@@ -48,7 +63,11 @@ export default {
     pesan: {},
     id_produkM: localStorage.getItem("id_aksesoris"),
     size: ["S", "M", "L", "XL"],
-    stokRules: [(v) => !!v || "Quantity is required!", (v) => v < 1 || "Input harus lebih dari 0", (v) => v > this.stok || "Stok tidak cukup"],
+    stokRules: [
+      (v) => !!v || "Quantity is required!",
+      (v) => v < 1 || "Input harus lebih dari 0",
+      (v) => v > this.stok || "Stok tidak cukup",
+    ],
   }),
   methods: {
     increment() {
