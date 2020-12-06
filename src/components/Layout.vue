@@ -17,7 +17,7 @@
       <hr style="height: 220pt; visibility: hidden" />
     </div>
     <v-container class="lighten-5 mb-6 categori" id="section2">
-      <v-row style="height: 150px">
+      <v-row>
         <v-col>
           <router-link to="/man">
             <img src="@/assets/manHome.png" alt="Image" width="350px" />
@@ -34,14 +34,40 @@
           </router-link>
         </v-col>
       </v-row>
+      <v-row>
+        <h1 class="mt-10 mb-10 display-1 font-weight-bold" align="center">Hot Item</h1>
+      </v-row>
+      <v-row>
+        <v-col>
+          <router-link :to="'/detailMan/' + man.id_produkM">
+                <img :src="this.$url+man.gambar_produkM" alt="Image" width="250px" />
+          </router-link>
+          <h5>{{man.nama_produkM}}</h5>
+          <p>IDR {{ man.harga_produkM }}</p>
+        </v-col>
+        <v-col>
+          <router-link :to="'/detailWoman/' + woman.id_produkW">
+                <img :src="this.$url+woman.gambar_produkW" alt="Image" width="250px" />
+          </router-link>
+          <h5>{{woman.nama_produkW}}</h5>
+          <p>IDR {{ woman.harga_produkW }}</p>
+        </v-col>
+        <v-col>
+          <router-link :to="'/detailAcc/' + acc.id_aksesoris">
+                <img :src="this.$url+acc.gambar_aksesoris" alt="Image" width="250px" />
+          </router-link>
+          <h5>{{acc.nama_aksesoris}}</h5>
+          <p>IDR {{ acc.harga_aksesoris}}</p>
+        </v-col>
+      </v-row>
     </v-container>
-    <br /><br />
+    <!-- <br /><br />
     <div class="hot-item">
       <v-col class="text-center" cols="12">
         <h1 class="display-1 font-weight-bold mb-4"></h1>
       </v-col>
       <template>
-        <h1 class="display-1 font-weight-bold" align="center">Hot Item</h1>
+        
 
         <v-container>
           <v-row class="text-center">
@@ -69,7 +95,7 @@
           </v-row>
         </v-container>
       </template>
-    </div>
+    </div> -->
     <footer-component></footer-component>
   </div>
 </template>
@@ -80,13 +106,69 @@ export default {
   name: "Homepage",
   data: function () {
     return {
+      man:{
+        id_produkM: '',
+        harga_produkM: '',
+        deskripsi_produkM: '',
+        gambar_produkM: '',
+        stok: '',
+      },
+      woman:{
+        id_produkW: '',
+        harga_produkW: '',
+        deskripsi_produkW: '',
+        gambar_produkW: '',
+        stok: '',
+      },
+      acc:{
+        id_aksesoris: '',
+        harga_aksesoris: '',
+        deskripsi_aksesoris: '',
+        gambar_aksesoris: '',
+        stok: '',
+      },
       jumbotron: { backgroundImage: `url(${require("@/assets/LandingPage.jpg")})` },
     };
+  },
+  methods:{
+    getRandomMan(){
+      var url = this.$api + "/man-random";
+      this.$http.get(url)
+        .then((response) => {
+          this.man = response.data.data;
+          console.log(this.man.id_produkM);
+        });
+    },
+    getRandomWoman(){
+      var url = this.$api + "/woman-random";
+      this.$http
+        .get(
+          url
+        )
+        .then((response) => {
+          this.woman = response.data.data;
+        });
+    },
+    getRandomAcc(){
+      var url = this.$api + "/acc-random";
+      this.$http
+        .get(
+          url
+        )
+        .then((response) => {
+          this.acc = response.data.data;
+        });
+    }
   },
   components: {
     "navbar-component": Header,
     "footer-component": Footer,
   },
+  mounted(){
+    this.getRandomMan();
+    this.getRandomWoman();
+    this.getRandomAcc();
+  }
 };
 </script>
 

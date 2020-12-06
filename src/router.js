@@ -157,8 +157,7 @@ const router = new VueRouter({
             meta: {title: "Detail Product Aksesoris"},
             component : importComponent('DetailProductAcc'),
         },
-        
     ]
+    
 });
-
 export default router;

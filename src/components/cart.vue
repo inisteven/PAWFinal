@@ -176,7 +176,7 @@ export default {
         })
         .then((response) => {
           this.cart = response.data.data;
-          searchProduct(this.cart.id_productCart, this.cart.kategori);
+          // searchProduct(this.cart.id_productCart, this.cart.kategori);
           console.log(this.cart);
         });
     },

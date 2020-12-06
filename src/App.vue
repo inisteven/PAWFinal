@@ -1,6 +1,12 @@
 <template>
   <v-app>
-    <router-view></router-view>
+    <transition 
+      mode="out-in" 
+      leave-active-class="animated fadeOut" 
+      enter-active-class="animated fadeInDown"
+    >
+      <router-view></router-view>
+    </transition>
   </v-app>
 </template>
 
