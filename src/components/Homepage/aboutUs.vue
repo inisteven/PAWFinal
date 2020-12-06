@@ -8,8 +8,8 @@
             <div align="center">
                 <h4></h4>
                 <br>
-                <h1 class="white--text v-input">Get your style FASTER</h1>
-                <h3 class="white--text v-input">and BETTER with us</h3>
+                <h1 class="white--text" style="font-size:4em; justify-content: center;">Get your style FASTER</h1>
+                <h3 class="white--text" style="font-size:4em; justify-content: center;">and BETTER with us</h3>
                 <br />
                 <div class="my-2" align="center" justify="center">
                     <v-btn depressed class="black white--text" href="#section2">Learn About Us</v-btn>
@@ -178,6 +178,7 @@
 </template>
 
 <script>
+import image from '../../assets/fashion.jpg';
 import Header from '../Navbar.vue';
 import Footer from '../Footer.vue';
 export default {
@@ -189,7 +190,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .backs {
     background-image: url(../../assets/fashion.jpg);
     background-attachment: fixed;
@@ -199,9 +200,5 @@ export default {
   }
   html {
     scroll-behavior: smooth;
-  }
-  .v-input {
-    font-size: 4em;
-    justify-content: center;
   }
 </style>

@@ -90,7 +90,7 @@ export default {
   },
   methods: {
     getItems() {
-      axios.get("api/items?page=" + this.pagination.current_page).then((response) => {
+      this.$http.get("api/items?page=" + this.pagination.current_page).then((response) => {
         this.products = response.data.data;
         this.pagination = response.data.meta;
       });
