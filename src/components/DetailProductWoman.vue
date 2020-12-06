@@ -176,19 +176,7 @@ export default {
           this.load = false;
         });
     },
-    readData() {
-      var url = this.$api + "/woman/" + this.$route.params.id_produkW;
-      this.$http
-        .get(url, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
-        .then((response) => {
-          this.product = response.data.data;
-          this.stokProduk = response.data.data.stok;
-        });
-    },
+    
     onPageChange() {
       this.readData();
     },
@@ -200,5 +188,6 @@ export default {
   mounted() {
     this.readData();
   },
+  
 };
 </script>
