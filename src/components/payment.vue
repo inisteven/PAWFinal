@@ -15,9 +15,10 @@
                 <body-1>Name</body-1>
 
                 <v-text-field
-                  v-model="name"
+                  v-model="fullname"
                   label="Name"
                   solo-inverted
+                  disabled
                   required
                 ></v-text-field>
               </v-flex>
@@ -108,7 +109,7 @@
         </v-row>
       </v-container>
       <div class="my-2" align="center" justify="center">
-        <v-btn class="black white--text" router to="/confirmation" @click="updateData"
+        <v-btn class="black white--text" @click="save" router to="/confirmation"
           >OK</v-btn
         >
       </div>
@@ -122,16 +123,19 @@
 import Header from "@/components/Navbar.vue";
 import Footer from "./Footer.vue";
 export default {
-  data() {
-    return {
-      payment: [],
-      first_name: "",
-      last_name: "",
-    };
-  },
+  data: () => ({
+    load: false,
+    user: [],
+    phoneNumber: "",
+    address: "",
+    city: "",
+    state: "",
+    postalCode: "",
+    order: new FormData(),
+  }),
   methods: {
     readData() {
-      var url = this.$api + "/order/" + localStorage.getItem("id");
+      var url = this.$api + "/user/" + localStorage.getItem("id");
       this.$http
         .get(url, {
           headers: {
@@ -139,58 +143,34 @@ export default {
           },
         })
         .then((response) => {
-          this.payment = response.data.data;
-
-          this.name = response.data.data.first_name;
-          console.log(this.first_name);
-          this.phoneNumber = response.data.data.phone_number;
-          this.address = response.data.data.address;
-          this.city = response.data.data.city;
-          this.province = response.data.data.province;
-          this.postal_code = response.data.data.postal_code;
-          this.urlImage = "http://127.0.0.1:8000/profile/" + this.image;
-          console.log(this.urlImage);
-          // this.first_name = response.data.data.first_name;
-        })
-        .catch((error) => {
-          this.error_message = error.response.data.message;
-          this.loadSnackbar("red", true);
-          // localStorage.removeItem('token')
+          this.user = response.data.data;
+          console.log(this.user);
         });
     },
-    loadSnackbar(color, bool) {
-      this.color = color;
-      this.snackbar = bool;
-    },
-    updateData() {
-      let dataPayment = {
-        name: response.data.data.first_name,
-        phoneNumber: response.data.data.phone_number,
-        address: response.data.data.address,
-        city: response.data.data.city,
-        province: response.data.data.province,
-        postal_code: response.data.data.postal_code,
-      };
+    save() {
+      this.order.append("id_user", localStorage.getItem("id"));
+      this.order.append("address", this.address);
+      this.order.append("city", this.city);
+      this.order.append("province", this.state);
+      this.order.append("postal_code", this.postalCode);
+      this.order.append("phoneNumber", this.phoneNumber);
+      this.order.append("total_harga", 0);
+      this.order.append("bukti_tf", "-");
 
-      var url = this.$api + "/order/" + localStorage.getItem("id");
+      var url = this.$api + "/order";
       this.load = true;
       this.$http
-        .put(url, dataPayment, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .post(url, this.order)
         .then((response) => {
           this.error_message = response.data.message;
-          this.snackbar = true;
-          this.color = "green";
+          this.snackbar = false;
           this.readData();
         })
         .catch((error) => {
           this.error_message = error.response.data.message;
+          this.color = "red";
           this.snackbar = true;
           this.load = false;
-          this.color = "red";
         });
     },
   },
@@ -198,8 +178,13 @@ export default {
     "navbar-component": Header,
     "footer-component": Footer,
   },
+  mounted() {
+    this.readData();
+  },
   computed: {
-    fullname() {},
+    fullname: function () {
+      return this.user.first_name + " " + this.user.last_name;
+    },
   },
 };
 </script>

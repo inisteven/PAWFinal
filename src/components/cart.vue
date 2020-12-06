@@ -71,9 +71,9 @@
                   </div>
                 </td>
                 <td>
-                  <v-btn text small @click="decrement">-</v-btn>
+                  <v-btn text small @click="decrement(index)">-</v-btn>
                   {{ item.jumlah }}
-                  <v-btn text small @click="increment">+</v-btn>
+                  <v-btn text small @click="increment(index)">+</v-btn>
                 </td>
                 <td>Rp. {{ item.total_harga }}</td>
                 <td>
@@ -99,7 +99,7 @@
           </table>
           <div class="row justify-content-end">
             <div class="col-md-4">
-              <v-btn class="black white--text" text router to="/payment" dark small
+              <v-btn class="black white--text" @click="save" text router to="/payment" dark small
                 >CHECKOUT</v-btn
               >
             </div>
@@ -142,6 +142,7 @@ export default {
     woman: [],
     man: [],
     acc: [],
+    harga: [],
     headers: [
       {
         text: "Item",
@@ -190,6 +191,7 @@ export default {
         })
         .then((response) => {
           this.woman = response.data.data;
+          this.harga = this.cart[id].total_harga / this.woman.harga_produkW;
         });
       return this.woman.gambar_produkW;
     },
@@ -229,11 +231,37 @@ export default {
       this.todos.splice(index, 1);
       this.dialogHapus = false;
     },
-    increment() {
-      this.quantity++;
+    increment(index) {
+      this.cart[index].jumlah = parseInt(this.cart[index].jumlah) + 1;
     },
-    decrement() {
-      this.quantity--;
+    decrement(index) {
+      if (this.cart[index].jumlah > 1) {
+        this.cart[index].jumlah = parseInt(this.cart[index].jumlah) - 1;
+      }
+    },
+    total(index) {
+      return this.cart[index].jumlah * this.harga;
+    },
+    save() {
+      for(let i=0;i<this.cart.length;i++)
+      {
+        var index = this.cart[i].id_cart + 1;
+        var url = this.$api + "/cart/" + index;
+        this.load = true;
+        this.$http
+          .put(url, this.cart[i])
+          .then((response) => {
+            this.error_message = response.data.message;
+            this.snackbar = false;
+            this.readData();
+          })
+          .catch((error) => {
+            this.error_message = error.response.data.message;
+            this.color = "red";
+            this.snackbar = true;
+            this.load = false;
+          });
+      }
     },
   },
 
