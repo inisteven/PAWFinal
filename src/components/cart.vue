@@ -26,8 +26,8 @@
                         readDataWoman(item.id_productCart)
                       "
                       alt="Image"
-                      width="250px"
-                      height="360px"
+                      width="190px"
+                      height="260px"
                     />
                   </div>
                   <div v-if="item.kategori == 'man'">
@@ -37,8 +37,8 @@
                         readDataMan(item.id_productCart)
                       "
                       alt="Image"
-                      width="250px"
-                      height="360px"
+                      width="190px"
+                      height="260px"
                     />
                   </div>
                   <div v-if="item.kategori == 'acc'">
@@ -48,8 +48,8 @@
                         readDataAcc(item.id_productCart)
                       "
                       alt="Image"
-                      width="250px"
-                      height="360px"
+                      width="190px"
+                      height="260px"
                     />
                   </div>
                 </th>
@@ -75,7 +75,7 @@
                   {{ item.jumlah }}
                   <v-btn text small @click="increment">+</v-btn>
                 </td>
-                <td>{{ item.total_harga }}</td>
+                <td>Rp. {{ item.total_harga }}</td>
                 <td>
                   <v-icon
                     small
@@ -227,7 +227,6 @@ export default {
     hapus() {
       var index = this.todos.indexOf(this.itemTemp);
       this.todos.splice(index, 1);
-
       this.dialogHapus = false;
     },
     increment() {
