@@ -157,7 +157,6 @@ export default {
       idLogin: "",
       isLoggedIn: false,
       username: "",
-      $nama: "Benny",
       image: image,
       cart: cart,
       search: "",
