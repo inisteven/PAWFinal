@@ -131,7 +131,7 @@ export default {
             this.reduceStok();
             this.readData();
             this.$refs.formStok.reset();
-            this.stok = 0;
+            this.stok = 1;
           })
           .catch((error) => {
             this.error_message = error.response.data.message;
@@ -155,17 +155,10 @@ export default {
           .put(
             url,
             newData
-            // {
-            //         headers:{
-            //             'Authorization': 'Bearer ' + localStorage.getItem('token')
-            //         }
-            // }
           )
           .then((response) => {
             this.error_message = response.data.message;
-            this.color = "green";
-            this.snackbar = true;
-            this.load = false;
+            this.snackbar = false;
             this.readData();
           })
           .catch((error) => {
