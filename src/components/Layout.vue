@@ -90,7 +90,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .back {
   background-image: url(../assets/LandingPage.jpg);
   background-attachment: fixed;

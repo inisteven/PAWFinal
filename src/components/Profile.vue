@@ -266,7 +266,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .v-text-field input {
   font-size: 16px;
 }
