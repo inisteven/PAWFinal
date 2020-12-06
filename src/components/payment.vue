@@ -163,7 +163,7 @@ export default {
       this.snackbar = bool;
     },
     updateData() {
-      let detaPayment = {
+      let dataPayment = {
         name: response.data.data.first_name,
         phoneNumber: response.data.data.phone_number,
         address: response.data.data.address,
@@ -175,7 +175,7 @@ export default {
       var url = this.$api + "/order/" + localStorage.getItem("id");
       this.load = true;
       this.$http
-        .put(url, dataUser, {
+        .put(url, dataPayment, {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
