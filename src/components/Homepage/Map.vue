@@ -1,7 +1,7 @@
 <template>
     <div>
         <GmapMap
-            :center="{lat:10, lng:10}"
+            :center="myCoordinates"
             :zoom="zoom"
             style="width:400px; height:265px; margin: 32px auto;"
             ref="mapRef"
