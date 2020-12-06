@@ -2,16 +2,32 @@
   <v-main class="list">
     <navbar-component></navbar-component>
     <div>
-      <v-img :src="require('@/assets/manPage.png')" class="d-block w-100" alt="manPic"></v-img>
+      <v-img
+        :src="require('@/assets/manPage.png')"
+        class="d-block w-100"
+        alt="manPic"
+      ></v-img>
       <v-row align="center" justify="center"> </v-row>
     </div>
 
     <template>
       <v-container>
         <v-row class="text-center">
-          <v-col id="my-product" v-for="item in products" :key="item.nama_produkM" :current-page="currentPage" :per-page="perPage" class="col-sm-12 col-md-4">
+          <v-col
+            id="my-product"
+            v-for="item in filteredList"
+            :key="item.nama_produkM"
+            :current-page="currentPage"
+            :per-page="perPage"
+            class="col-sm-12 col-md-4"
+          >
             <router-link :to="'/detailMan/' + item.id_produkM">
-              <img :src="'http://127.0.0.1:8000/products/' + item.gambar_produkM" alt="Image" width="250px" />
+              <img
+                :src="'http://127.0.0.1:8000/products/' + item.gambar_produkM"
+                alt="Image"
+                width="250px"
+                height="360px"
+              />
             </router-link>
             <h5>{{ item.nama_produkM }}</h5>
             <p>IDR {{ item.harga_produkM }}</p>
@@ -20,9 +36,21 @@
 
         <div class="text-xs-center">
           <pagination :data="items" @pagination-change-page="getResult"></pagination>
-          <pagination v-if="pagination.last_page > 1" :pagination="pagination" @paginate="getItems()"> </pagination>
+          <pagination
+            v-if="pagination.last_page > 1"
+            :pagination="pagination"
+            @paginate="getItems()"
+          >
+          </pagination>
 
-          <v-pagination :data="product" @input="handlePageChange" @pagination-change-page="getResult" v-model="pagination.current_page" :length="pagination.total" circle></v-pagination>
+          <v-pagination
+            :data="product"
+            @input="handlePageChange"
+            @pagination-change-page="getResult"
+            v-model="pagination.current_page"
+            :length="pagination.total"
+            circle
+          ></v-pagination>
         </div>
       </v-container>
     </template>
@@ -108,7 +136,9 @@ export default {
     },
   },
   pages() {
-    return this.pagination.rowsPerPage ? Math.ceil(this.items.length / this.pagination.rowsPerPage) : 0;
+    return this.pagination.rowsPerPage
+      ? Math.ceil(this.items.length / this.pagination.rowsPerPage)
+      : 0;
   },
   mounted() {
     this.readData();

@@ -2,16 +2,29 @@
   <div>
     <navbar-component></navbar-component>
     <div>
-      <v-img :src="require('@/assets/accPage.png')" class="d-block w-100" alt="manPic"></v-img>
+      <v-img
+        :src="require('@/assets/accPage.png')"
+        class="d-block w-100"
+        alt="manPic"
+      ></v-img>
       <v-row align="center" justify="center"> </v-row>
     </div>
 
     <template>
       <v-container>
         <v-row class="text-center">
-          <v-col v-for="item in filteredList" :key="item.nama_aksesoris" class="col-sm-12 col-md-4">
+          <v-col
+            v-for="item in filteredList"
+            :key="item.nama_aksesoris"
+            class="col-sm-12 col-md-4"
+          >
             <router-link :to="'/detailAcc/' + item.id_aksesoris">
-              <img :src="'http://127.0.0.1:8000/products/' + item.gambar_aksesoris" alt="Image" width="250px" />
+              <img
+                :src="'http://127.0.0.1:8000/products/' + item.gambar_aksesoris"
+                alt="Image"
+                width="250px"
+                height="360px"
+              />
             </router-link>
             <h5>{{ item.nama_aksesoris }}</h5>
             <p>IDR {{ item.harga_aksesoris }}</p>

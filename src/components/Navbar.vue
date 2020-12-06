@@ -1,87 +1,136 @@
 <template>
   <header>
-    <b-nav class="navbar navbar-expand-md">
-      <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+    <nav class="navbar navbar-expand-md navbar-light">
+      <div class="navbar-collapse w-100 order-1 order-md-0" v-show="isHidden">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <v-text-field v-model="search" hide-details prepend-icon="mdi-magnify" label="Search our item" single-line></v-text-field>
+            <v-text-field
+              v-model="search"
+              hide-details
+              prepend-icon="mdi-magnify"
+              label="Search our item"
+              single-line
+            ></v-text-field>
           </li>
         </ul>
       </div>
       <div class="mx-auto order-0">
         <b-navbar-brand href="#">
-          <img :src="image" class="d-inline-block align-top logo" alt="Logo" width="220px" />
+          <img
+            :src="image"
+            class="d-inline-block align-top logo justify-center"
+            alt="Logo"
+            width="220px"
+          />
         </b-navbar-brand>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target=".dual-collapse2"
+          @click="isHidden = !isHidden"
+        >
           <span class="navbar-toggler-icon"></span>
         </button>
       </div>
-      <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+      <div
+        class="navbar-collapse collapse w-100 order-3 dual-collapse2"
+        v-show="isHidden"
+      >
         <ul class="navbar-nav ml-auto">
           <b-navbar-nav class="ml-auto" variant="dark">
             <div v-if="isLoggedIn" style="margin-top: 20px; margin-right: -45px">
-              <v-btn v-model="username" text router to="/profile" small><v-icon>mdi-account</v-icon>Hi {{ user.first_name }}! </v-btn>
+              <v-btn v-model="username" text router to="/profile" small
+                ><v-icon>mdi-account</v-icon>Hi {{ user.first_name }}!
+              </v-btn>
 
-              <!--<v-menu transition="slide-y-transition" bottom>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn class="black--text" text dark v-bind="attrs" v-on="on" v-model="username" text> <v-icon>mdi-account</v-icon>Hi {{ user.first_name }}! </v-btn>
-                </template>
-
-                <v-list>
-                  <v-list-item>
-                    <v-list-item-title>
-                      <v-btn text router to="/profile"><v-icon>mdi-account-settings</v-icon>Edit Profile</v-btn>
-                    </v-list-item-title>
-                  </v-list-item>
-
-                  <v-list-item>
-                    <v-list-item-title>
-                      <v-btn text router @click="logout"><v-icon>mdi-logout</v-icon>Logout</v-btn>
-                    </v-list-item-title>
-                  </v-list-item>
-                </v-list>
-              </v-menu>-->
-
-              <v-btn text router @click="logout" small><v-icon>mdi-logout</v-icon>Logout</v-btn>
+              <v-btn text router @click="logout" small
+                ><v-icon>mdi-logout</v-icon>Logout</v-btn
+              >
             </div>
-            <div v-else>
+            <div v-else v-show="isHidden">
               <v-btn height="65px" text router to="/signIn">Sign in</v-btn>
               <v-btn height="65px" text router to="/signUp">Sign Up</v-btn>
             </div>
 
-            <div>
+            <div v-show="isHidden">
               <b-nav-item v-if="isLoggedIn" router to="/cart">
                 <div>
                   <v-badge color="red" :content="jumlah">
-                    <img :src="cart" class="align-top logo ml-10" alt="Logo" width="40px" />
+                    <img
+                      :src="cart"
+                      class="align-top logo ml-10"
+                      alt="Logo"
+                      width="40px"
+                    />
                   </v-badge>
                 </div>
               </b-nav-item>
               <b-nav-item v-else>
                 <div>
-                  <img :src="cart" class="align-top logo ml-10" alt="Logo" width="40px" /></div
+                  <img
+                    :src="cart"
+                    class="align-top logo ml-10"
+                    alt="Logo"
+                    width="40px"
+                  /></div
               ></b-nav-item>
             </div>
           </b-navbar-nav>
         </ul>
       </div>
-    </b-nav>
-
-    <v-app-bar>
-      <v-container>
-        <v-row justify="center" align="center">
-          <v-toolbar-items>
-            <v-col>
-              <v-btn height="65px" text router to="/home">Home</v-btn>
-              <v-btn height="65px" text router to="/about-us">About Us</v-btn>
-              <v-btn height="65px" text router to="/man">Man</v-btn>
-              <v-btn height="65px" text router to="/woman">Woman</v-btn>
-              <v-btn height="65px" text router to="/acc">Accessories</v-btn>
-            </v-col>
-          </v-toolbar-items>
-        </v-row>
-      </v-container>
-    </v-app-bar>
+    </nav>
+    <nav
+      class="navbar navbar-light navbar-expand-md justify-content-md-center justify-content-start"
+    >
+      <a class="nav-link" href="#_"><i class="fa fa-search mr-1"></i></a>
+      <div
+        class="navbar-collapse collapse dual-collapse2 justify-content-between align-items-center w-100"
+        id="collapsingNavbar2"
+      >
+        <ul class="navbar-nav mx-auto text-md-center text-left">
+          <li class="nav-item">
+            <v-btn text router to="/home">Home</v-btn>
+          </li>
+          <li class="nav-item">
+            <v-btn text router to="/about-us">About Us</v-btn>
+          </li>
+          <li class="nav-item my-auto">
+            <v-btn text router to="/man">Man</v-btn>
+          </li>
+          <li class="nav-item">
+            <v-btn text router to="/woman">Woman</v-btn>
+          </li>
+          <li class="nav-item">
+            <v-btn text router to="/acc">Accessories</v-btn>
+          </li>
+        </ul>
+        <div class="sembunyi" v-show="!isHidden">
+          <v-divider></v-divider>
+          <ul class="navbar-nav mx-auto text-md-center text-left">
+            <div v-if="isLoggedIn">
+              <li class="nav-item">
+                <v-btn text router to="/home">Cart</v-btn>
+              </li>
+              <li class="nav-item">
+                <v-btn text router to="/profile">Edit Profile</v-btn>
+              </li>
+              <li class="nav-item my-auto">
+                <v-btn text @click="logout">Sign Out</v-btn>
+              </li>
+            </div>
+            <div v-else>
+              <li class="nav-item">
+                <v-btn text router to="/signIn">Sign In</v-btn>
+              </li>
+              <li class="nav-item">
+                <v-btn text router to="/signUp">Sign Up</v-btn>
+              </li>
+            </div>
+          </ul>
+        </div>
+      </div>
+    </nav>
 
     <v-dialog v-model="dialogLogout" max-width="400px">
       <v-card>
@@ -103,6 +152,7 @@ export default {
   data: function () {
     return {
       fields: { value: "id", text: "text" },
+      isHidden: true,
       dialogLogout: false,
       idLogin: "",
       isLoggedIn: false,

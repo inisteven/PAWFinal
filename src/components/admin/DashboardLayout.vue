@@ -1,5 +1,7 @@
 <template>
   <div class="Dashboard">
+    <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+
     <v-navigation-drawer
       :color="warna"
       class="fullheight"
@@ -28,7 +30,7 @@
             }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item> </v-list
-      ><br /><br /><br/>
+      ><br /><br /><br />
       <v-divider></v-divider>
       <v-btn text router @click="logout" class="white--text"
         ><v-icon color="white">mdi-power</v-icon>Logout</v-btn
@@ -48,12 +50,8 @@
         <v-card-title>Do you sure want to logout ?</v-card-title>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-2" @click="cancelLogout" class="mr-3 mb-5"
-            >No</v-btn
-          >
-          <v-btn color="grey" @click="logoutConfirm" class="mr-3 mb-5"
-            >Yes</v-btn
-          >
+          <v-btn color="blue darken-2" @click="cancelLogout" class="mr-3 mb-5">No</v-btn>
+          <v-btn color="grey" @click="logoutConfirm" class="mr-3 mb-5">Yes</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
