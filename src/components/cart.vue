@@ -17,11 +17,14 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(item,index) in cart" :key="index">
+              <tr v-for="(item, index) in cart" :key="index">
                 <th>
                   <div v-if="item.kategori == 'woman'">
                     <img
-                      :src="'http://127.0.0.1:8000/products/' + readDataWoman(item.id_productCart)"
+                      :src="
+                        'http://127.0.0.1:8000/products/' +
+                        readDataWoman(item.id_productCart)
+                      "
                       alt="Image"
                       width="250px"
                       height="360px"
@@ -29,7 +32,10 @@
                   </div>
                   <div v-if="item.kategori == 'man'">
                     <img
-                      :src="'http://127.0.0.1:8000/products/' + readDataMan(item.id_productCart)"
+                      :src="
+                        'http://127.0.0.1:8000/products/' +
+                        readDataMan(item.id_productCart)
+                      "
                       alt="Image"
                       width="250px"
                       height="360px"
@@ -37,7 +43,10 @@
                   </div>
                   <div v-if="item.kategori == 'acc'">
                     <img
-                      :src="'http://127.0.0.1:8000/products/' + readDataAcc(item.id_productCart)"
+                      :src="
+                        'http://127.0.0.1:8000/products/' +
+                        readDataAcc(item.id_productCart)
+                      "
                       alt="Image"
                       width="250px"
                       height="360px"
@@ -46,19 +55,19 @@
                 </th>
                 <td>
                   <div class="product-info" v-if="item.kategori == 'woman'">
-                    <h5> {{ woman.nama_produkW }} </h5>
+                    <h5>{{ woman.nama_produkW }}</h5>
                     <h6>{{ woman.harga_produkW }}</h6>
-                    <subtitle-2>{{item.size}}</subtitle-2>
+                    <subtitle-2>{{ item.size }}</subtitle-2>
                   </div>
                   <div class="product-info" v-if="item.kategori == 'man'">
-                    <h5> {{ man.nama_produkM }} </h5>
+                    <h5>{{ man.nama_produkM }}</h5>
                     <h6>{{ man.harga_produkM }}</h6>
-                    <subtitle-2>{{item.size}}</subtitle-2>
+                    <subtitle-2>{{ item.size }}</subtitle-2>
                   </div>
                   <div class="product-info" v-if="item.kategori == 'acc'">
-                    <h5> {{ acc.nama_aksesoris }} </h5>
+                    <h5>{{ acc.nama_aksesoris }}</h5>
                     <h6>{{ acc.harga_aksesoris }}</h6>
-                    <subtitle-2>{{item.size}}</subtitle-2>
+                    <subtitle-2>{{ item.size }}</subtitle-2>
                   </div>
                 </td>
                 <td>
@@ -66,7 +75,7 @@
                   {{ item.jumlah }}
                   <v-btn text small @click="increment">+</v-btn>
                 </td>
-                <td>{{item.total_harga}}</td>
+                <td>{{ item.total_harga }}</td>
                 <td>
                   <v-icon
                     small
@@ -90,21 +99,14 @@
           </table>
           <div class="row justify-content-end">
             <div class="col-md-4">
-              <v-btn
-                class="black white--text"
-                text
-                router
-                to="/confirmation"
-                dark
-                small
+              <v-btn class="black white--text" text router to="/payment" dark small
                 >CHECKOUT</v-btn
               >
             </div>
           </div>
           <div class="continue">
             <router-link to="home" text class="black--text"
-              ><v-icon>mdi-keyboard-backspace </v-icon> Continue
-              Shopping</router-link
+              ><v-icon>mdi-keyboard-backspace </v-icon> Continue Shopping</router-link
             >
           </div>
         </div>
@@ -116,9 +118,7 @@
       <v-row justify="center">
         <v-dialog v-model="dialogHapus" persistent max-width="290">
           <v-card>
-            <v-card-title class="heading 3">
-              Yakin mau menghapus?
-            </v-card-title>
+            <v-card-title class="heading 3"> Yakin mau menghapus? </v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn text @click="dialogHapus = false"> Tidak </v-btn>
@@ -167,7 +167,7 @@ export default {
   }),
   methods: {
     readData() {
-      var url = this.$api + "/cart/" ;
+      var url = this.$api + "/cart/";
       this.$http
         .get(url, {
           headers: {
@@ -191,7 +191,7 @@ export default {
         .then((response) => {
           this.woman = response.data.data;
         });
-        return this.woman.gambar_produkW;
+      return this.woman.gambar_produkW;
     },
     readDataMan(id) {
       var url = this.$api + "/man/" + id;
@@ -204,7 +204,7 @@ export default {
         .then((response) => {
           this.man = response.data.data;
         });
-        return this.man.gambar_produkM;
+      return this.man.gambar_produkM;
     },
     readDataAcc(id) {
       var url = this.$api + "/acc/" + id;
@@ -217,9 +217,9 @@ export default {
         .then((response) => {
           this.acc = response.data.data;
         });
-        return this.acc.gambar_aksesoris;
+      return this.acc.gambar_aksesoris;
     },
-    
+
     deleteItem(item) {
       this.dialogHapus = true;
       this.itemTemp = item;
@@ -246,13 +246,13 @@ export default {
     this.readData();
   },
   computed: {
-    totalHarga: function() {
-      var total=0;
-      for(let i=0; i<this.cart.length;i++){
-          total=total+this.cart[i].total_harga;
+    totalHarga: function () {
+      var total = 0;
+      for (let i = 0; i < this.cart.length; i++) {
+        total = total + this.cart[i].total_harga;
       }
       return total;
-    }
-  }
+    },
+  },
 };
 </script>

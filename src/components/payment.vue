@@ -5,9 +5,7 @@
       <br />
       <h1 class="font-weight-black text-center">PAYMENT</h1>
       <br /><br />
-      <h3 class="font-weight-black mt-5" style="margin-left: 200px">
-        Shipping Info
-      </h3>
+      <h3 class="font-weight-black mt-5" style="margin-left: 200px">Shipping Info</h3>
       <v-row justify="center">
         <v-col cols="12" sm="8">
           <br />
@@ -97,14 +95,12 @@
                 Petunjuk Transfer ATM<br />
                 1. Pilih TRANSFER<br />
                 2. Masukkan 4589123124 dan pilih benar<br />
-                3. Periksa kembali informasi yang tertera di layar sudah
-                benar.<br />
+                3. Periksa kembali informasi yang tertera di layar sudah benar.<br />
                 <br />
                 Petunjuk Transfer mBanking<br />
                 1. Pilih m-Transfer <br />
                 2. Masukkan nomor rekening 4589123124 dan pilih benar<br />
-                3. Periksa kembali informasi yang tertera di layar sudah
-                benar.<br />
+                3. Periksa kembali informasi yang tertera di layar sudah benar.<br />
                 4. Masukkan PIN m-Banking Anda dan pilih OK<br />
               </body-1>
             </v-card-subtitle>
@@ -112,7 +108,7 @@
         </v-row>
       </v-container>
       <div class="my-2" align="center" justify="center">
-        <v-btn depressed class="black white--text">OK</v-btn>
+        <v-btn class="black white--text" router to="/confirmation">OK</v-btn>
       </div>
       <br /><br />
     </v-container>
