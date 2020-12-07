@@ -10,7 +10,7 @@
             <thead class="thead-light" :headers="headers">
               <tr>
                 <th scope="col">Item</th>
-                <th scope="col"></th>
+                <th scope="col">Detail</th>
                 <th scope="col">Quantity</th>
                 <th scope="col">Total</th>
                 <th scope="col"></th>
@@ -48,7 +48,7 @@
                         readDataAcc(item.id_productCart)
                       "
                       alt="Image"
-                      width="190px"
+                      width="180px"
                       height="260px"
                     />
                   </div>
@@ -71,9 +71,7 @@
                   </div>
                 </td>
                 <td>
-                  <v-btn text small @click="decrement(index)">-</v-btn>
                   {{ item.jumlah }}
-                  <v-btn text small @click="increment(index)">+</v-btn>
                 </td>
                 <td>Rp. {{ item.total_harga }}</td>
                 <td>
@@ -168,7 +166,7 @@ export default {
   }),
   methods: {
     readData() {
-      var url = this.$api + "/cart/";
+      var url = this.$api + "/cart/"+ localStorage.getItem("id");
       this.$http
         .get(url, {
           headers: {
@@ -230,14 +228,6 @@ export default {
       var index = this.todos.indexOf(this.itemTemp);
       this.todos.splice(index, 1);
       this.dialogHapus = false;
-    },
-    increment(index) {
-      this.cart[index].jumlah = parseInt(this.cart[index].jumlah) + 1;
-    },
-    decrement(index) {
-      if (this.cart[index].jumlah > 1) {
-        this.cart[index].jumlah = parseInt(this.cart[index].jumlah) - 1;
-      }
     },
     total(index) {
       return this.cart[index].jumlah * this.harga;

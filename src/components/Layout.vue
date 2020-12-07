@@ -40,21 +40,21 @@
       <v-row>
         <v-col>
           <router-link :to="'/detailMan/' + man.id_produkM">
-                <img :src="this.$url+man.gambar_produkM" alt="Image" width="250px" />
+                <img :src="this.$url+'products/'+man.gambar_produkM" alt="Image" width="250px" />
           </router-link>
           <h5>{{man.nama_produkM}}</h5>
           <p>IDR {{ man.harga_produkM }}</p>
         </v-col>
         <v-col>
           <router-link :to="'/detailWoman/' + woman.id_produkW">
-                <img :src="this.$url+woman.gambar_produkW" alt="Image" width="250px" />
+                <img :src="this.$url+'products/'+woman.gambar_produkW" alt="Image" width="250px" />
           </router-link>
           <h5>{{woman.nama_produkW}}</h5>
           <p>IDR {{ woman.harga_produkW }}</p>
         </v-col>
         <v-col>
           <router-link :to="'/detailAcc/' + acc.id_aksesoris">
-                <img :src="this.$url+acc.gambar_aksesoris" alt="Image" width="250px" />
+                <img :src="this.$url+'products/'+acc.gambar_aksesoris" alt="Image" width="250px" />
           </router-link>
           <h5>{{acc.nama_aksesoris}}</h5>
           <p>IDR {{ acc.harga_aksesoris}}</p>

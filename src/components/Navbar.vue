@@ -171,7 +171,7 @@ export default {
   },
   methods: {
     readDataCart() {
-      var url = this.$api + "/cart/";
+      var url = this.$api + "/cart/" + localStorage.getItem("id");
       this.$http
         .get(url, {
           headers: {
