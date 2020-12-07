@@ -85,6 +85,9 @@ export default {
       this.dialog = true;
     },
     logoutConfirm() {
+      localStorage.removeItem("token");
+      localStorage.removeItem("id");
+      localStorage.removeItem("isLoggedIn");
       this.$router.push("/signIn");
     },
     cancelLogout() {

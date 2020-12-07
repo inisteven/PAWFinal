@@ -115,18 +115,21 @@ export default {
                 email: this.email,
                 password: this.password
             }).then(response=>{
-                localStorage.setItem('token', response.data.access_token); //menyimpan auth token
-                localStorage.setItem('isLoggedIn', true);
-                this.error_message = response.data.message;
-                if(response.data.status == "success"){
-                  this.cancel();
-                  localStorage.setItem('id', response.data.user.id);
-                  this.loadSnackbar("green",true)
-                  this.$router.push({
-                      name: 'Homepage'
-                  })
+                if(response.data.user.id==1){
+                  this.$router.push('/admin-dashboard')
+                }else{
+                  localStorage.setItem('token', response.data.access_token); //menyimpan auth token
+                  localStorage.setItem('isLoggedIn', true);
+                  this.error_message = response.data.message;
+                  if(response.data.status == "success"){
+                    this.cancel();
+                    localStorage.setItem('id', response.data.user.id);
+                    this.loadSnackbar("green",true)
+                      this.$router.push({
+                        name: 'Homepage'
+                      })
+                  }
                 }
-                this.loadSnackbar("red",true)
             }).catch(error => {
                 this.error_message = error.response.data.message;
                 this.loadSnackbar("red",true)

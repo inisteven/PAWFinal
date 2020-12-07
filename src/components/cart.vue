@@ -146,8 +146,6 @@ export default {
     error_message:"",
     idProductUpdate: 0,
     idCart: 0,
-    idProductUpdate:0,
-    idCart :0,
     jumlah: 0,
     total_harga : 0,
     man: [],
