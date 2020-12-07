@@ -12,73 +12,80 @@
         <v-col cols="12" sm="8">
           <br />
           <v-container>
-            <v-row>
-              <v-col class="col-md-6 col-sm-12">
-                <body-1>Name</body-1>
+            <v-form v-model="validate" ref="formPayment">
+              <v-row>
+                <v-col class="col-md-6 col-sm-12">
+                  <body-1>Name</body-1>
 
-                <v-text-field
-                  v-model="fullname"
-                  label="Name"
-                  solo-inverted
-                  disabled
-                  required
-                ></v-text-field>
-              </v-col>
-              <v-col class="col-md-6 col-sm-12">
-                <body-1>Phone Number</body-1>
+                  <v-text-field
+                    v-model="fullname"
+                    label="Name"
+                    solo-inverted
+                    disabled
+                    required
+                  ></v-text-field>
+                </v-col>
+                <v-col class="col-md-6 col-sm-12">
+                  <body-1>Phone Number</body-1>
 
-                <v-text-field
-                  v-model="phoneNumber"
-                  label="Phone Number"
-                  solo-inverted
-                  required
-                ></v-text-field>
-              </v-col>
-            </v-row>
-            <br /><br />
-            <v-layout>
-              <v-flex>
-                <body-1>Address</body-1>
+                  <v-text-field
+                    v-model="phoneNumber"
+                    label="Phone Number"
+                    solo-inverted
+                    :rules="phoneRules"
+                    required
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+              <br /><br />
+              <v-layout>
+                <v-flex>
+                  <body-1>Address</body-1>
 
-                <v-textarea
-                  v-model="address"
-                  label="Address"
-                  solo-inverted
-                  required
-                ></v-textarea>
-              </v-flex>
-            </v-layout>
-            <br /><br />
-            <v-row>
-              <v-col class="col-md-4 col-sm-12">
-                <body-1>City</body-1>
-                <v-text-field
-                  v-model="city"
-                  label="City"
-                  solo-inverted
-                  required
-                ></v-text-field>
-              </v-col>
-              <v-col class="col-md-4 col-sm-12">
-                <body-1>State or Province</body-1>
+                  <v-textarea
+                    v-model="address"
+                    label="Address"
+                    solo-inverted
+                    :rules="addressRules"
+                    required
+                  ></v-textarea>
+                </v-flex>
+              </v-layout>
+              <br /><br />
+              <v-row>
+                <v-col class="col-md-4 col-sm-12">
+                  <body-1>City</body-1>
+                  <v-text-field
+                    v-model="city"
+                    label="City"
+                    :rules="cityRules"
+                    solo-inverted
+                    required
+                  ></v-text-field>
+                </v-col>
+                <v-col class="col-md-4 col-sm-12">
+                  <body-1>State or Province</body-1>
 
-                <v-text-field
-                  v-model="state"
-                  label="State or Province"
-                  solo-inverted
-                  required
-                ></v-text-field>
-              </v-col>
-              <v-col>
-                <body-1>Postal Code</body-1>
-                <v-text-field
-                  v-model="postalCode"
-                  label="Postal Code"
-                  solo-inverted
-                  required
-                ></v-text-field>
-              </v-col>
-            </v-row>
+                  <v-text-field
+                    v-model="state"
+                    label="State or Province"
+                    solo-inverted
+                    :rules="stateRules"
+                    required
+                  ></v-text-field>
+                </v-col>
+                <v-col>
+                  <body-1>Postal Code</body-1>
+                  <v-text-field
+                    v-model="postalCode"
+                    label="Postal Code"
+                    :rules="postalRules"
+                    solo-inverted
+                    required
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+            </v-form>
           </v-container>
         </v-col>
       </v-row>
@@ -115,8 +122,6 @@
           class="black white--text"
           style="margin-left: 550px"
           @click="save"
-          router
-          to="/confirmation"
           >OK</v-btn
         >
       </div>
@@ -133,6 +138,12 @@ export default {
   data: () => ({
     load: false,
     user: [],
+    validate: false,
+    phoneRules: [(v) => !!v || "Phone Number is required", (v) => (v && v.length >= 11 && v.length <= 13) || "Phone Number must be 11-13 Digit"],
+    addressRules: [(v) => !!v || "Address is required"],
+    cityRules: [(v) => !!v || "City is required"],
+    stateRules: [(v) => !!v || "State is required"],
+    postalRules: [(v) => !!v || "Postal Code is required"],
     phoneNumber: "",
     address: "",
     city: "",
@@ -154,30 +165,32 @@ export default {
         });
     },
     save() {
-      this.order.append("id_user", localStorage.getItem("id"));
-      this.order.append("address", this.address);
-      this.order.append("city", this.city);
-      this.order.append("province", this.state);
-      this.order.append("postal_code", this.postalCode);
-      this.order.append("phoneNumber", this.phoneNumber);
-      this.order.append("total_harga", 0);
-      this.order.append("bukti_tf", "-");
+      if(this.$refs.formPayment.validate()){
+        this.order.append("id_user", localStorage.getItem("id"));
+        this.order.append("address", this.address);
+        this.order.append("city", this.city);
+        this.order.append("province", this.state);
+        this.order.append("postal_code", this.postalCode);
+        this.order.append("total_harga", 0);
+        this.order.append("phoneNumber", this.phoneNumber);
 
-      var url = this.$api + "/order";
-      this.load = true;
-      this.$http
-        .post(url, this.order)
-        .then((response) => {
-          this.error_message = response.data.message;
-          this.snackbar = false;
-          this.readData();
-        })
-        .catch((error) => {
-          this.error_message = error.response.data.message;
-          this.color = "red";
-          this.snackbar = true;
-          this.load = false;
-        });
+        var url = this.$api + "/order";
+        this.$http
+          .post(url, this.order, {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          })
+          .then((response) => {
+            this.$router.push('/confirmation');
+          })
+          .catch((error) => {
+            this.error_message = error.response.data.message;
+            this.color = "red";
+            this.snackbar = true;
+            this.load = false;
+          });
+      }
     },
   },
   components: {
