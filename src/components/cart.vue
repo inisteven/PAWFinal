@@ -84,19 +84,7 @@
                     >X</v-icon
                   >
                 </td>
-
-              </tr>
-              <tr>
-                <td colspan="3" align="right">
-                  <strong>Total Harga :</strong>
-                </td>
-                <td>
-                  <strong>Rp. {{ totalHarga }} </strong>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <template>
+              <template>
             <v-row justify="center">
               <v-dialog v-model="dialogHapus" persistent max-width="290">
                 <v-card>
@@ -110,9 +98,21 @@
               </v-dialog>
             </v-row>
           </template>
+              </tr>
+              <tr>
+                <td colspan="3" align="right">
+                  <strong>Total Harga :</strong>
+                </td>
+                <td>
+                  <strong>IDR {{ total_harga }} </strong>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          
           <div class="row justify-content-end">
             <div class="col-md-4">
-              <v-btn class="black white--text" @click="save" text router to="/payment" dark small
+              <v-btn class="black white--text" text router to="/payment" dark small
                 >CHECKOUT</v-btn
               >
             </div>
@@ -146,7 +146,10 @@ export default {
     error_message:"",
     idProductUpdate: 0,
     idCart: 0,
+    idProductUpdate:0,
+    idCart :0,
     jumlah: 0,
+    total_harga : 0,
     man: [],
     acc: [],
     harga: [],
@@ -184,8 +187,8 @@ export default {
         })
         .then((response) => {
           this.cart = response.data.data;
-          // searchProduct(this.cart.id_productCart, this.cart.kategori);
-          console.log(this.cart);
+          this.total_harga = response.data.total;
+          console.log(this.total_harga);
         });
     },
     readDataWoman(id) {
@@ -198,7 +201,6 @@ export default {
         })
         .then((response) => {
           this.woman = response.data.data;
-          this.harga = this.cart[id].total_harga / this.woman.harga_produkW;
         });
       return this.woman.gambar_produkW;
     },
@@ -216,6 +218,8 @@ export default {
       return this.man.gambar_produkM;
     },
     readDataAcc(id) {
+      this.getJumlah();
+      console.log(this.total_harga);
       var url = this.$api + "/acc/" + id;
       this.$http
         .get(url, {
@@ -233,38 +237,10 @@ export default {
     },
     deleteItem(item) {
       this.dialogHapus = true;
-      this.idProductUpdate = item.id_productCart;
       this.idCart = item.id_cart;
-      this.jumlah = item.jumlah;
-
       this.deleteCart(this.idCart);
-      if(item.kategori == "man"){
-        this.updateMan(this.idProductUpdate, item.jumlah);
-      }
       this.readData();
-    },
-    updateMan(id_produk,jumlah){
-        var url = this.$api + "/man/" + id_produk + "/" + jumlah;
-        this.$http
-          .put(
-            url,
-            // {
-            //         headers:{
-            //             'Authorization': 'Bearer ' + localStorage.getItem('token')
-            //         }
-            // }
-          ).then((response) => {
-          this.error_message = response.data.message;
-          this.color = "green";
-          this.snackbar = true;
-          })
-          .catch((error) => {
-            this.error_message = error.response.data.message;
-            console.log(this.error_message);
-            this.error_message = "Something error...";
-            this.snackbar = true;
-            this.color ="red"
-          });
+      this.dialogHapus = false;
     },
     deleteCart(idCart){
        var url = this.$api + "/cart/" + idCart;
@@ -299,15 +275,6 @@ export default {
   },
   mounted() {
     this.readData();
-  },
-  computed: {
-    totalHarga: function () {
-      var total = 0;
-      for (let i = 0; i < this.cart.length; i++) {
-        total = total + this.cart[i].total_harga;
-      }
-      return total;
-    },
   },
 };
 </script>
