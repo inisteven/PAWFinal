@@ -15,17 +15,37 @@
         <hr class="w-100 clearfix d-md-none" />
         <v-col class="col-md-3 col-sm-12 col-xs-12">
           <h6 class="text-uppercase mb-4 font-weight-bold">CATEGORIES</h6>
-          <p><a href="./womenPage.php">Woman</a></p>
-          <p><a href="./manPage.php">Man</a></p>
-          <p><a href="./accPage.php">Accesories</a></p>
+          <ul style="list-style-type: none">
+            <li>
+              <router-link text router to="/woman">Woman</router-link>
+            </li>
+            <li>
+              <router-link text router to="/man">Man</router-link>
+            </li>
+            <li>
+              <router-link text router to="/acc">Accesorries</router-link>
+            </li>
+          </ul>
         </v-col>
         <hr class="w-100 clearfix d-md-none" />
         <v-col class="col-md-3 col-sm-12 col-xs-12">
           <h6 class="text-uppercase mb-4 font-weight-bold">FOLLOW US</h6>
-          <p><v-icon md icon color="white">mdi-facebook</v-icon> Facebook</p>
-          <p><v-icon icon color="white">mdi-twitter</v-icon> Twitter</p>
-          <p><v-icon icon color="white">mdi-instagram</v-icon> Instagram</p>
-          <p><v-icon icon color="white">mdi-youtube</v-icon> Youtube</p>
+          <p>
+            <v-icon md icon color="white">mdi-facebook</v-icon
+            ><a href="https://web.facebook.com/?_rdc=1&_rdr"> Facebook </a>
+          </p>
+          <p>
+            <v-icon icon color="white">mdi-twitter</v-icon>
+            <a href="https://twitter.com/home">Twitter </a>
+          </p>
+          <p>
+            <v-icon icon color="white">mdi-instagram</v-icon>
+            <a href="https://instagram.com">Instagram</a>
+          </p>
+          <p>
+            <v-icon icon color="white">mdi-youtube</v-icon>
+            <a href="https://youtube.com">Youtube</a>
+          </p>
         </v-col>
 
         <v-col class="col-md-3 col-sm-12 col-xs-12">
@@ -59,5 +79,15 @@
   text-decoration: none;
   color: #dfdfdf;
   font-size: 12px;
+}
+
+a {
+  color: white;
+  margin-left: 5px;
+}
+
+li {
+  margin-bottom: 10px;
+  margin-left: -29px;
 }
 </style>

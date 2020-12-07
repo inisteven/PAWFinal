@@ -1,6 +1,12 @@
 <template>
   <div class="Dashboard">
-    <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+    <v-app-bar color="white" dark app>
+      <v-app-bar-nav-icon
+        color="grey darken-3
+"
+        @click="drawer = !drawer"
+      ></v-app-bar-nav-icon>
+    </v-app-bar>
 
     <v-navigation-drawer
       :color="warna"
