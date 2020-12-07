@@ -5,13 +5,13 @@
       <br />
       <h1 class="font-weight-black text-center">PAYMENT</h1>
       <br /><br />
-      <h3 class="font-weight-black mt-5" style="margin-left: 200px">Shipping Info</h3>
-      <v-row justify="center">
-        <v-col cols="12" sm="8">
+      <h3 class="font-weight-black mt-5">Shipping Info</h3>
+      <!-- <v-row justify="center">
+        <v-col cols="12" sm="8"> -->
           <br />
-          <v-container grid-list-md>
-            <v-layout>
-              <v-flex>
+          <!-- <v-container> -->
+            <v-row>
+              <v-col class="col-md-6 col-sm-12">
                 <body-1>Name</body-1>
 
                 <v-text-field
@@ -21,8 +21,8 @@
                   disabled
                   required
                 ></v-text-field>
-              </v-flex>
-              <v-flex>
+              </v-col>
+              <v-col class="col-md-6 col-sm-12">
                 <body-1>Phone Number</body-1>
 
                 <v-text-field
@@ -31,8 +31,8 @@
                   solo-inverted
                   required
                 ></v-text-field>
-              </v-flex>
-            </v-layout>
+              </v-col>
+            </v-row>
             <br /><br />
             <v-layout>
               <v-flex>
@@ -47,8 +47,8 @@
               </v-flex>
             </v-layout>
             <br /><br />
-            <v-layout>
-              <v-flex>
+            <v-row>
+              <v-col class="col-md-4 col-sm-12"> 
                 <body-1>City</body-1>
                 <v-text-field
                   v-model="city"
@@ -56,8 +56,8 @@
                   solo-inverted
                   required
                 ></v-text-field>
-              </v-flex>
-              <v-flex>
+              </v-col>
+              <v-col class="col-md-4 col-sm-12">
                 <body-1>State or Province</body-1>
 
                 <v-text-field
@@ -66,8 +66,8 @@
                   solo-inverted
                   required
                 ></v-text-field>
-              </v-flex>
-              <v-flex>
+              </v-col>
+              <v-col>
                 <body-1>Postal Code</body-1>
                 <v-text-field
                   v-model="postalCode"
@@ -75,14 +75,14 @@
                   solo-inverted
                   required
                 ></v-text-field>
-              </v-flex>
-            </v-layout>
-          </v-container>
-        </v-col>
-      </v-row>
+              </v-col>
+            </v-row>
+          <!-- </v-container> -->
+        <!-- </v-col>
+      </v-row> -->
       <v-divider></v-divider>
 
-      <v-container justify="center" style="margin-left: 200px">
+      <v-container justify="center">
         <v-row justify="center">
           <v-col>
             <v-card-title bold>
@@ -108,10 +108,8 @@
           </v-col>
         </v-row>
       </v-container>
-      <div class="my-2" align="center" justify="center">
-        <v-btn class="black white--text" @click="save" router to="/confirmation"
-          >OK</v-btn
-        >
+      <div class="my-2 mx-6">
+        <v-btn class="black white--text" @click="save" router to="/confirmation">OK</v-btn>
       </div>
       <br /><br />
     </v-container>
@@ -144,7 +142,6 @@ export default {
         })
         .then((response) => {
           this.user = response.data.data;
-          console.log(this.user);
         });
     },
     save() {

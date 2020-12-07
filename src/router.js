@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-
 Vue.use(VueRouter)
 
+// const NProgress = new NProgress()
 function importComponent(path){
     return () => import (`./components/${path}.vue`)
 }

@@ -54,7 +54,7 @@
             </div>
 
             <div v-show="isHidden">
-              <b-nav-item v-if="isLoggedIn" router to="/cart">
+              <b-nav-item v-if="isLoggedIn && jumlah>0" router to="/cart">
                 <div>
                   <v-badge color="red" :content="jumlah">
                     <img
@@ -68,13 +68,17 @@
               </b-nav-item>
               <b-nav-item v-else>
                 <div>
+                  <router-link to="/cart">
                   <img
                     :src="cart"
                     class="align-top logo ml-10"
                     alt="Logo"
                     width="40px"
-                  /></div
-              ></b-nav-item>
+                  />
+                  </router-link>
+                </div>
+                  
+              </b-nav-item>
             </div>
           </b-navbar-nav>
         </ul>
@@ -110,7 +114,7 @@
           <ul class="navbar-nav mx-auto text-md-center text-left">
             <div v-if="isLoggedIn">
               <li class="nav-item">
-                <v-btn text router to="/home">Cart</v-btn>
+                <v-btn text router to="/cart">Cart</v-btn>
               </li>
               <li class="nav-item">
                 <v-btn text router to="/profile">Edit Profile</v-btn>
@@ -151,6 +155,7 @@ import cart from "../assets/cart2.png";
 export default {
   data: function () {
     return {
+      nCarts: [],
       fields: { value: "id", text: "text" },
       isHidden: true,
       dialogLogout: false,
@@ -160,11 +165,30 @@ export default {
       image: image,
       cart: cart,
       search: "",
-      jumlah: 10, //SELECT (jumlah) from cart where id = idLogin AND isPay = 0
+      jumlah: 0, //SELECT (jumlah) from cart where id = idLogin AND isPay = 0
       items: [{ title: "Profile", to: "/profile" }],
     };
   },
   methods: {
+    readDataCart() {
+      var url = this.$api + "/cart/";
+      this.$http
+        .get(url, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        })
+        .then((response) => {
+          this.nCarts = response.data.data;
+          this.getJumlah();
+          // searchProduct(this.cart.id_productCart, this.cart.kategori);
+        });
+    },
+    getJumlah(){
+      for(let i=0 ; i<this.nCarts.length;i++){
+        this.jumlah += this.nCarts[i].jumlah;
+      }
+    },
     readData() {
       this.idLogin = localStorage.getItem("id");
       this.isLoggedIn = localStorage.getItem("isLoggedIn");
@@ -179,8 +203,6 @@ export default {
           this.user = response.data.data;
 
           this.username = response.data.data.first_name;
-          console.log(this.username);
-          // this.first_name = response.data.data.first_name;
         })
         .catch((error) => {
           this.error_message = error.response.data.message;
@@ -195,6 +217,7 @@ export default {
     logoutConfirm() {
       localStorage.removeItem("token");
       localStorage.removeItem("id");
+      localStorage.removeItem("isLoggedIn");
       this.$router.push("/signIn");
       this.isLoggedIn = false;
     },
@@ -204,6 +227,7 @@ export default {
   },
   mounted() {
     this.readData();
+    this.readDataCart();
   },
 };
 </script>
