@@ -94,10 +94,6 @@ const router = new VueRouter({
             path : "/signIn",
             name : "Sign In",
             meta: {title: "Sign In"},
-            beforeEnter: ((to,from,next)=> {
-                NProgress.start();
-                next();
-            }),
             component : importComponent('Login'),
         },
         // signUp
