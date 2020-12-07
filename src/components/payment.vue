@@ -5,11 +5,13 @@
       <br />
       <h1 class="font-weight-black text-center">PAYMENT</h1>
       <br /><br />
-      <h3 class="font-weight-black mt-5">Shipping Info</h3>
-      <!-- <v-row justify="center">
-        <v-col cols="12" sm="8"> -->
+      <h3 class="font-weight-black mt-2 text-left" style="margin-left: 200px">
+        Shipping Info
+      </h3>
+      <v-row justify="center">
+        <v-col cols="12" sm="8">
           <br />
-          <!-- <v-container> -->
+          <v-container>
             <v-row>
               <v-col class="col-md-6 col-sm-12">
                 <body-1>Name</body-1>
@@ -48,7 +50,7 @@
             </v-layout>
             <br /><br />
             <v-row>
-              <v-col class="col-md-4 col-sm-12"> 
+              <v-col class="col-md-4 col-sm-12">
                 <body-1>City</body-1>
                 <v-text-field
                   v-model="city"
@@ -77,12 +79,12 @@
                 ></v-text-field>
               </v-col>
             </v-row>
-          <!-- </v-container> -->
-        <!-- </v-col>
-      </v-row> -->
+          </v-container>
+        </v-col>
+      </v-row>
       <v-divider></v-divider>
 
-      <v-container justify="center">
+      <v-container justify="center" style="margin-left: 200px">
         <v-row justify="center">
           <v-col>
             <v-card-title bold>
@@ -109,7 +111,14 @@
         </v-row>
       </v-container>
       <div class="my-2 mx-6">
-        <v-btn class="black white--text" @click="save" router to="/confirmation">OK</v-btn>
+        <v-btn
+          class="black white--text"
+          style="margin-left: 550px"
+          @click="save"
+          router
+          to="/confirmation"
+          >OK</v-btn
+        >
       </div>
       <br /><br />
     </v-container>
