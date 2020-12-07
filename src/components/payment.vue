@@ -124,16 +124,16 @@ export default {
   data: () => ({
     load: false,
     user: [],
-    phoneNumber: '',
-    address: '',
-    city: '',
-    state: '',
-    postalCode: '',
-    order: new FormData,
+    phoneNumber: "",
+    address: "",
+    city: "",
+    state: "",
+    postalCode: "",
+    order: new FormData(),
   }),
   methods: {
     readData() {
-      var url = this.$api + "/user/" + localStorage.getItem('id');
+      var url = this.$api + "/user/" + localStorage.getItem("id");
       this.$http
         .get(url, {
           headers: {
@@ -145,7 +145,7 @@ export default {
         });
     },
     save() {
-      this.order.append("id_user", localStorage.getItem('id'));
+      this.order.append("id_user", localStorage.getItem("id"));
       this.order.append("address", this.address);
       this.order.append("city", this.city);
       this.order.append("province", this.state);
@@ -153,7 +153,7 @@ export default {
       this.order.append("phoneNumber", this.phoneNumber);
       this.order.append("total_harga", 0);
       this.order.append("bukti_tf", "-");
-      
+
       var url = this.$api + "/order";
       this.load = true;
       this.$http
@@ -169,7 +169,7 @@ export default {
           this.snackbar = true;
           this.load = false;
         });
-    }
+    },
   },
   components: {
     "navbar-component": Header,
@@ -179,9 +179,9 @@ export default {
     this.readData();
   },
   computed: {
-    fullname: function(){
-      return this.user.first_name + ' ' + this.user.last_name;
-    }
-  }
+    fullname: function () {
+      return this.user.first_name + " " + this.user.last_name;
+    },
+  },
 };
 </script>
