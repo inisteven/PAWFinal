@@ -91,9 +91,9 @@
       </v-row>
       <v-divider></v-divider>
 
-      <v-container justify="center" style="margin-left: 200px">
+      <v-container justify="center">
         <v-row justify="center">
-          <v-col>
+          <v-col cols="12" sm="8">
             <v-card-title bold>
               <h2 class="font-weight-black mt-5">Payment Menthod</h2>
             </v-card-title>
@@ -118,12 +118,11 @@
         </v-row>
       </v-container>
       <div class="my-2 mx-6">
-        <v-btn
-          class="black white--text"
-          style="margin-left: 550px"
-          @click="save"
-          >OK</v-btn
-        >
+        <v-col cols="12">
+          <v-row justify="center">
+            <v-btn class="black white--text" @click="save">OK</v-btn>
+          </v-row>
+        </v-col>
       </div>
       <br /><br />
     </v-container>
@@ -139,7 +138,11 @@ export default {
     load: false,
     user: [],
     validate: false,
-    phoneRules: [(v) => !!v || "Phone Number is required", (v) => (v && v.length >= 11 && v.length <= 13) || "Phone Number must be 11-13 Digit"],
+    phoneRules: [
+      (v) => !!v || "Phone Number is required",
+      (v) =>
+        (v && v.length >= 11 && v.length <= 13) || "Phone Number must be 11-13 Digit",
+    ],
     addressRules: [(v) => !!v || "Address is required"],
     cityRules: [(v) => !!v || "City is required"],
     stateRules: [(v) => !!v || "State is required"],
@@ -149,7 +152,7 @@ export default {
     city: "",
     state: "",
     postalCode: "",
-    order: new FormData,
+    order: new FormData(),
   }),
   methods: {
     readDataForm() {
@@ -184,7 +187,7 @@ export default {
         });
     },
     save() {
-      if(this.$refs.formPayment.validate()){
+      if (this.$refs.formPayment.validate()) {
         this.order.append("id_user", localStorage.getItem("id"));
         this.order.append("address", this.address);
         this.order.append("city", this.city);
@@ -201,7 +204,7 @@ export default {
             },
           })
           .then((response) => {
-            this.$router.push('/confirmation');
+            this.$router.push("/confirmation");
           });
       }
     },
