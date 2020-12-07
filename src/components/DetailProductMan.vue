@@ -99,15 +99,77 @@ export default {
       }
     },
     pesanan() {
-      if (this.$refs.formStok.validate()) {
-        if (this.stok > this.product.stok) {
-          this.error_message = "Stock is not enough !";
-          this.snackbar = true;
-          this.color = "red";
-        } else {
-          this.addToCart();
+      if(localStorage.getItem("isLoggedIn")){
+        if (this.$refs.formStok.validate()) {
+          if (this.stok > this.product.stok) {
+            this.error_message = "Stock is not enough !";
+            this.snackbar = true;
+            this.color = "red";
+          } else {
+            this.getStatus(this.product.id_aksesoris,this.size);
+          }
         }
+      }else{
+        this.error_message = "Login first for shopping !";
+        this.snackbar = true;
+        this.color = "red"
       }
+    },
+    getStatus(idProduk,size){
+      var url = this.$api + "/cart-cek/" + idProduk + "/" + this.id_user +"/"+size;
+      this.$http
+        .get(url, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        })
+        .then((response) => {
+          this.cekStatus = response.data.data;
+          this.add(idProduk,size);
+        });
+    },
+    add(idProduk,size){
+      if(this.cekStatus.length < 1){
+        this.addToCart();
+      }else{
+        this.updateCart(idProduk,size);
+      }
+    },
+    updateCart(idProduk,size){
+        let newData = {
+          id_productCart: idProduk,
+          id_userCart: this.id_user,
+          size: size,
+          stok: this.stok,
+        };
+        var url = this.$api + "/cart-update/"+idProduk+"/"+this.id_user+"/"+size+"/"+this.stok;
+        this.load = true;
+        this.$http
+          .put(
+            url,
+            newData,
+            {
+                    headers:{
+                        'Authorization': 'Bearer ' + localStorage.getItem('token')
+                    }
+            }
+          )
+          .then((response) => {
+            this.error_message = response.data.message;
+            this.color = "green";
+            this.snackbar = true;
+            this.load = false;
+            this.reduceStok();
+            this.readData();
+            this.$refs.formStok.reset();
+            this.stok = 1;
+          })
+          .catch((error) => {
+            this.error_message = error.response.data.message;
+            this.color = "red";
+            this.snackbar = true;
+            this.load = false;
+          });
     },
     addToCart() {
       this.total_harga = this.product.harga_produkM * this.stok;

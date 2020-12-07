@@ -19,6 +19,7 @@
     "mapbox-gl": "^1.13.0",
     "vue": "^2.6.12",
     "vue-mapbox": "^0.4.1",
+    "vue-nprogress": "^0.2.0",
     "vue-resource": "^1.5.1",
     "vue-router": "^3.4.9",
     "vuetify": "^2.3.19"

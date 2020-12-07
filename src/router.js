@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-
 Vue.use(VueRouter)
 
+// const NProgress = new NProgress()
 function importComponent(path){
     return () => import (`./components/${path}.vue`)
 }
@@ -94,6 +94,10 @@ const router = new VueRouter({
             path : "/signIn",
             name : "Sign In",
             meta: {title: "Sign In"},
+            beforeEnter: ((to,from,next)=> {
+                NProgress.start();
+                next();
+            }),
             component : importComponent('Login'),
         },
         // signUp

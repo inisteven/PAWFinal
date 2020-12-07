@@ -48,8 +48,8 @@
                         readDataAcc(item.id_productCart)
                       "
                       alt="Image"
-                      width="250px"
-                      height="360px"
+                      width="100px"
+                      height="100px"
                     />
                   </div>
                 </th>

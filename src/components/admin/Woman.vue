@@ -350,7 +350,6 @@ export default {
         this.product.append("deskripsi_produkW", this.form.description);
         this.product.append("gambar_produkW", this.form.image);
         this.product.append("stok", this.form.stok);
-        console.log(this.product.gambar_produkW);
         var url = this.$api + "/woman/";
         this.load = true;
         this.$http
