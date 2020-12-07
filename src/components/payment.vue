@@ -149,7 +149,7 @@ export default {
     city: "",
     state: "",
     postalCode: "",
-    order: new FormData(),
+    order: new FormData,
   }),
   methods: {
     readData() {
@@ -183,12 +183,6 @@ export default {
           })
           .then((response) => {
             this.$router.push('/confirmation');
-          })
-          .catch((error) => {
-            this.error_message = error.response.data.message;
-            this.color = "red";
-            this.snackbar = true;
-            this.load = false;
           });
       }
     },
