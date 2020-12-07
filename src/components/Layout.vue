@@ -127,36 +127,44 @@ export default {
         gambar_aksesoris: '',
         stok: '',
       },
+      randMan: 0,
+      randWoman: 0,
+      randAcc: 0,  
       jumbotron: { backgroundImage: `url(${require("@/assets/LandingPage.jpg")})` },
     };
   },
   methods:{
     getRandomMan(){
-      var url = this.$api + "/man-random";
+      var url = this.$api + "/man";
       this.$http.get(url)
         .then((response) => {
-          this.man = response.data.data;
-          console.log(this.man.id_produkM);
+          this.men = response.data.data;
+          this.randMan = Math.floor(Math.random() * this.men.length) + 1;
+          this.man = this.men[this.randMan-1];
         });
     },
     getRandomWoman(){
-      var url = this.$api + "/woman-random";
+      var url = this.$api + "/woman";
       this.$http
         .get(
           url
         )
         .then((response) => {
-          this.woman = response.data.data;
+          this.women = response.data.data;
+          this.randWoman = Math.floor(Math.random() * this.women.length) + 1;
+          this.woman = this.women[this.randWoman-1];
         });
     },
     getRandomAcc(){
-      var url = this.$api + "/acc-random";
+      var url = this.$api + "/acc";
       this.$http
         .get(
           url
         )
         .then((response) => {
-          this.acc = response.data.data;
+          this.accs = response.data.data;
+          this.randAcc = Math.floor(Math.random() * this.accs.length) + 1;
+          this.acc = this.accs[this.randAcc-1];
         });
     }
   },
