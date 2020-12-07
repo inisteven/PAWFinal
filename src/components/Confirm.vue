@@ -16,16 +16,16 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr v-for="(item, index) in cart" :key="index">
                 <td>
                   <div class="product-info" v-if="item.kategori == 'woman'">
-                    <h5>{{ woman.nama_produkW }}</h5>
+                    <h5>{{ readDataWoman(item.id_productCart) }}</h5>
                   </div>
                   <div class="product-info" v-if="item.kategori == 'man'">
-                    <h5>{{ man.nama_produkM }}</h5>
+                    <h5>{{ readDataMan(item.id_productCart) }}</h5>
                   </div>
                   <div class="product-info" v-if="item.kategori == 'acc'">
-                    <h5>{{ acc.nama_aksesoris }}</h5>
+                    <h5>{{ readDataAcc(item.id_productCart) }}</h5>
                   </div>
                 </td>
                 <td>{{ item.size }}</td>
@@ -35,7 +35,7 @@
 
               <tr>
                 <td colspan="3" align="right">Subtotal</td>
-                <td>Rp. {{ total_harga }}</td>
+                <td>Rp. {{ subtotal() }}</td>
               </tr>
 
               <tr>
@@ -47,7 +47,7 @@
                 <td colspan="3" align="right" style="border: none">
                   <strong>Total :</strong>
                 </td>
-                <td style="border: none">Rp. {{ total_harga_semua }}</td>
+                <td style="border: none">Rp. {{ totalHarga }}</td>
               </tr>
             </tbody>
           </table>
@@ -63,10 +63,11 @@
                   </h6>
                 </div>
                 <div class="custom-file">
-                  <h6>{{ user.first_name + "" + user.last_name }}</h6>
-                  <h6>{{ user.address }}</h6>
-                  <h6>{{ user.city }}</h6>
-                  <h6>{{ user.phoneNumber }}</h6>
+                  <h6>{{ fullname }}</h6>
+                  <h6>{{ order.address }}</h6>
+                  <h6>{{ order.city }}</h6>
+                  <h6>{{ order.province }}</h6>
+                  <h6>{{ order.phoneNumber }}</h6>
                 </div>
               </div>
             </div>
@@ -87,7 +88,7 @@
       </v-col>
     </v-row>
     <div class="button" justify="center" align="center" style="margin-bottom: 100px">
-      <v-btn class="black white--text" text router to="/thankyou" dark>CONFRIM</v-btn>
+      <v-btn class="black white--text" text @click="save" dark>CONFRIM</v-btn>
     </div>
     <br />
 
@@ -115,6 +116,7 @@ import Header from "@/components/Navbar.vue";
 import Footer from "./Footer.vue";
 export default {
   data: () => ({
+    total: 0,
     dialogHapus: false,
     quantity: 1,
     ongkir: 50000,
@@ -126,6 +128,7 @@ export default {
     acc: [],
     harga: [],
     user: [],
+    order: [],
     headers: [
       {
         text: "Item",
@@ -150,8 +153,24 @@ export default {
     ],
   }),
   methods: {
+    save(e) {
+      let image = e.target.files[0];
+      let uploadImg = new FormData();
+      uploadImg.append("image", image);
+      var url = this.$api + "/order/upload-image/" + this.order.id_order;
+      this.$http
+        .post(url, uploadImg, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token")
+          }
+        })
+        .then((response) => {
+          console.log(response.data.message);
+          this.$router.push("/thankyou");
+        });
+    },
     readData() {
-      var url = this.$api + "/cart/" + localStorage.getItem("id");
+      var url = this.$api + "/cart/search/" + localStorage.getItem("id");
       this.$http
         .get(url, {
           headers: {
@@ -160,8 +179,7 @@ export default {
         })
         .then((response) => {
           this.cart = response.data.data;
-          this.total_harga = response.data.total;
-          console.log(this.total_harga);
+          this.total_harga = this.cart.total_harga;
         });
     },
     readDataWoman(id) {
@@ -175,7 +193,7 @@ export default {
         .then((response) => {
           this.woman = response.data.data;
         });
-      return this.woman.gambar_produkW;
+      return this.woman.nama_produkW;
     },
     readDataMan(id) {
       var url = this.$api + "/man/" + id;
@@ -188,7 +206,7 @@ export default {
         .then((response) => {
           this.man = response.data.data;
         });
-      return this.man.gambar_produkM;
+      return this.man.nama_produkM;
     },
     readDataAcc(id) {
       this.getJumlah();
@@ -203,10 +221,22 @@ export default {
         .then((response) => {
           this.acc = response.data.data;
         });
-      return this.acc.gambar_aksesoris;
+      return this.acc.nama_aksesoris;
     },
     readUser() {
-      var url = this.$api + "/order/" + localStorage.getItem("id");
+      var url = this.$api + "/order/search/" + localStorage.getItem("id");
+      this.$http
+        .get(url, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        })
+        .then((response) => {
+          this.order = response.data.data;
+        });
+    },
+    readDataUser() {
+      var url = this.$api + "/user/" + localStorage.getItem("id");
       this.$http
         .get(url, {
           headers: {
@@ -233,15 +263,31 @@ export default {
     decrement() {
       this.quantity--;
     },
+    subtotal(){
+      var totalH=0;
+      for(let i=0;i<this.cart.length;i++){
+        totalH=totalH+this.cart[i].total_harga;
+      }
+      this.total=totalH;
+      return totalH;
+    },
   },
-  computed: {},
-
+  computed: {
+    totalHarga: function(){
+      return this.total + 50000;
+    },
+    fullname: function (){
+      return this.user.first_name + " " + this.user.last_name;
+    },
+  },
   components: {
     "navbar-component": Header,
     "footer-component": Footer,
   },
   mounted() {
     this.readData();
+    this.readUser();
+    this.readDataUser();
   },
 };
 </script>

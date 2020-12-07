@@ -137,6 +137,8 @@ export default {
   data: () => ({
     load: false,
     user: [],
+    edit: 0,
+    id: 0,
     validate: false,
     phoneRules: [
       (v) => !!v || "Phone Number is required",
@@ -152,6 +154,7 @@ export default {
     city: "",
     state: "",
     postalCode: "",
+    bukti: 0,
     order: new FormData(),
   }),
   methods: {
@@ -164,14 +167,16 @@ export default {
           },
         })
         .then((response) => {
+          this.id = response.data.data.id_order;
           this.phoneNumber = response.data.data.phoneNumber;
           this.address = response.data.data.address;
           this.city = response.data.data.city;
           this.state = response.data.data.province;
           this.postalCode = response.data.data.postal_code;
-        })
-        .catch((error) => {
-          console.log(error.response.data.message);
+          this.bukti = response.data.data.bukti_tf;
+          this.edit= 1;
+        }).catch(() => {
+            this.edit=0;
         });
     },
     readData() {
@@ -196,16 +201,32 @@ export default {
         this.order.append("total_harga", 0);
         this.order.append("phoneNumber", this.phoneNumber);
 
-        var url = this.$api + "/order";
-        this.$http
-          .post(url, this.order, {
-            headers: {
-              Authorization: "Bearer " + localStorage.getItem("token"),
-            },
-          })
-          .then((response) => {
-            this.$router.push("/confirmation");
-          });
+        if(this.edit == 0){
+          var url = this.$api + "/order";
+          this.$http
+            .post(url, this.order, {
+              headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+              },
+            })
+            .then(() => {
+              this.$router.push("/confirmation");
+            });
+        }else if(this.edit == 1){
+          var urlEdit = this.$api + "/order/"+ this.id + '?_method=PUT';
+          this.order.append("bukti_tf", this.bukti);
+          this.$http
+            .post(urlEdit, this.order, {
+              headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+              },
+            })
+            .then(() => {
+              this.$router.push("/confirmation");
+            });
+        }
+
+        
       }
     },
   },
