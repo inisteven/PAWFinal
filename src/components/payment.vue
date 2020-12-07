@@ -152,6 +152,25 @@ export default {
     order: new FormData,
   }),
   methods: {
+    readDataForm() {
+      var url = this.$api + "/order/search/" + localStorage.getItem("id");
+      this.$http
+        .get(url, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        })
+        .then((response) => {
+          this.phoneNumber = response.data.data.phoneNumber;
+          this.address = response.data.data.address;
+          this.city = response.data.data.city;
+          this.state = response.data.data.province;
+          this.postalCode = response.data.data.postal_code;
+        })
+        .catch((error) => {
+          console.log(error.response.data.message);
+        });
+    },
     readData() {
       var url = this.$api + "/user/" + localStorage.getItem("id");
       this.$http
@@ -193,6 +212,7 @@ export default {
   },
   mounted() {
     this.readData();
+    this.readDataForm();
   },
   computed: {
     fullname: function () {
