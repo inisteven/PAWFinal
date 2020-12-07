@@ -21,6 +21,7 @@
           <br />
 
           <h3 class="red--text">IDR {{ product.harga_produkW }}</h3>
+          <v-spacer>Stok : {{ product.stok}}</v-spacer>
           <br />
           <v-form v-model="valid" ref="formStok">
             <v-row class="md-6"
@@ -106,7 +107,7 @@ export default {
             this.snackbar = true;
             this.color = "red";
           } else {
-            this.getStatus(this.product.id_aksesoris,this.size);
+            this.getStatus(this.product.id_produkW,this.size);
           }
         }
       }else{
@@ -116,7 +117,7 @@ export default {
       }
     },
     getStatus(idProduk,size){
-      var url = this.$api + "/cart-cek/" + idProduk + "/" + this.id_user +"/"+size;
+      var url = this.$api + "/cart-cek/" + idProduk + "/" + this.id_user +"/"+size+"/woman";
       this.$http
         .get(url, {
           headers: {
@@ -142,8 +143,7 @@ export default {
           size: size,
           stok: this.stok,
         };
-        var url = this.$api + "/cart-update/"+idProduk+"/"+this.id_user+"/"+size+"/"+this.stok;
-        this.load = true;
+        var url = this.$api + "/cart-update/"+idProduk+"/"+this.id_user+"/"+size+"/woman/"+this.stok;
         this.$http
           .put(
             url,
@@ -166,9 +166,10 @@ export default {
           })
           .catch((error) => {
             this.error_message = error.response.data.message;
+            console.log(this.error_message);
+            this.error_message = "Something wrong..."
             this.color = "red";
             this.snackbar = true;
-            this.load = false;
           });
     },
     addToCart() {
@@ -181,12 +182,6 @@ export default {
       this.pesan.append("total_harga", this.total_harga);
       this.pesan.append("isPay", 0);
       this.pesan.append("kategori", "woman");
-
-      console.log(this.id_produk);
-      console.log(this.id_user);
-      console.log(this.total_harga);
-      console.log(this.stok);
-      console.log(this.size);
 
       var url = this.$api + "/cart";
       this.load = true;
@@ -208,9 +203,10 @@ export default {
         })
         .catch((error) => {
           this.error_message = error.response.data.message;
+          console.log(this.error_message);
+          this.error_message = "Something wrong..."
           this.color = "red";
           this.snackbar = true;
-          this.load = false;
         });
     },
     reduceStok() {
@@ -233,12 +229,25 @@ export default {
         })
         .catch((error) => {
           this.error_message = error.response.data.message;
+          console.log(this.error_message);
+          this.error_message = "Something wrong..."
           this.color = "red";
           this.snackbar = true;
-          this.load = false;
         });
     },
-    
+    readData() {
+      var url = this.$api + "/woman/" + this.$route.params.id_produkW;
+      this.$http
+        .get(url, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        })
+        .then((response) => {
+          this.product = response.data.data;
+          this.stokProduk = response.data.data.stok;
+        });
+    },
     onPageChange() {
       this.readData();
     },

@@ -21,6 +21,7 @@
           <br />
 
           <h3 class="red--text">IDR {{ product.harga_aksesoris }}</h3>
+          <v-spacer>Stok : {{ product.stok}}</v-spacer>
           <br />
           <v-form v-model="valid" ref="formStok">
             <v-row class="md-6 sm-12"
@@ -117,7 +118,7 @@ export default {
       }
     },
     getStatus(idProduk,size){
-      var url = this.$api + "/cart-cek/" + idProduk + "/" + this.id_user +"/"+size;
+      var url = this.$api + "/cart-cek/" + idProduk + "/" + this.id_user +"/"+size+"/acc";
       this.$http
         .get(url, {
           headers: {
@@ -143,7 +144,7 @@ export default {
           size: size,
           stok: this.stok,
         };
-        var url = this.$api + "/cart-update/"+idProduk+"/"+this.id_user+"/"+size+"/"+this.stok;
+        var url = this.$api + "/cart-update/"+idProduk+"/"+this.id_user+"/"+size+"/acc/"+this.stok;
         this.load = true;
         this.$http
           .put(
@@ -167,9 +168,10 @@ export default {
           })
           .catch((error) => {
             this.error_message = error.response.data.message;
+            console.log(this.error_message);
+            this.error_message = "Something wrong..."
             this.color = "red";
             this.snackbar = true;
-            this.load = false;
           });
     },
     addToCart() {
@@ -203,9 +205,10 @@ export default {
         })
         .catch((error) => {
           this.error_message = error.response.data.message;
+          console.log(this.error_message);
+          this.error_message = "Something wrong..."
           this.color = "red";
           this.snackbar = true;
-          this.load = false;
         });
     },
     reduceStok() {
@@ -217,20 +220,8 @@ export default {
         stok: newStok,
       };
       var url = this.$api + "/acc/" + this.id_produk;
-      this.load = true;
       this.$http
         .put(url, newData)
-        .then((response) => {
-          this.error_message = response.data.message;
-          this.snackbar = false;
-          this.readData();
-        })
-        .catch((error) => {
-          this.error_message = error.response.data.message;
-          this.color = "red";
-          this.snackbar = true;
-          this.load = false;
-        });
     },
     readData() {
       var url = this.$api + "/acc/" + this.$route.params.id_aksesoris;

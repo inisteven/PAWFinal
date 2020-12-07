@@ -161,6 +161,13 @@ export default {
       dialogLogout: false,
       idLogin: "",
       isLoggedIn: false,
+      user: {
+        first_name: '',
+        last_name: '',
+        email: '',
+        password: '',
+        no_telp: '',
+      },
       username: "",
       image: image,
       cart: cart,
@@ -175,7 +182,7 @@ export default {
       this.$http
         .get(url, {
           headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
           },
         })
         .then((response) => {

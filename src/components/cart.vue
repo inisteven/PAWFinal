@@ -78,12 +78,13 @@
                   <v-icon
                     small
                     class="mr-2"
-                    @click="deleteItem(item)"
+                    @click="deleteDialog"
                     icon
                     slot="activator"
                     >X</v-icon
                   >
                 </td>
+
               </tr>
               <tr>
                 <td colspan="3" align="right">
@@ -95,6 +96,20 @@
               </tr>
             </tbody>
           </table>
+          <template>
+            <v-row justify="center">
+              <v-dialog v-model="dialogHapus" persistent max-width="290">
+                <v-card>
+                  <v-card-title class="heading 3"> Remove from cart? </v-card-title>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn text @click="dialogHapus = false"> No </v-btn>
+                    <v-btn text @click="deleteItem(item)"> Yes </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </v-row>
+          </template>
           <div class="row justify-content-end">
             <div class="col-md-4">
               <v-btn class="black white--text" @click="save" text router to="/payment" dark small
@@ -110,22 +125,10 @@
         </div>
       </v-col>
     </v-row>
+    <v-snackbar v-model="snackbar" :color="color" timeout="2000" bottom>{{
+      error_message
+    }}</v-snackbar>
     <footer-component></footer-component>
-
-    <template>
-      <v-row justify="center">
-        <v-dialog v-model="dialogHapus" persistent max-width="290">
-          <v-card>
-            <v-card-title class="heading 3"> Yakin mau menghapus? </v-card-title>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn text @click="dialogHapus = false"> Tidak </v-btn>
-              <v-btn text @click="hapus"> Ya </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-      </v-row>
-    </template>
   </div>
 </template>
 
@@ -138,6 +141,12 @@ export default {
     quantity: 1,
     cart: [],
     woman: [],
+    color: "",
+    snackbar:"",
+    error_message:"",
+    idProductUpdate: 0,
+    idCart: 0,
+    jumlah: 0,
     man: [],
     acc: [],
     harga: [],
@@ -219,39 +228,68 @@ export default {
         });
       return this.acc.gambar_aksesoris;
     },
-
+    deleteDialog(){
+      this.dialogHapus = true;
+    },
     deleteItem(item) {
       this.dialogHapus = true;
-      this.itemTemp = item;
+      this.idProductUpdate = item.id_productCart;
+      this.idCart = item.id_cart;
+      this.jumlah = item.jumlah;
+
+      this.deleteCart(this.idCart);
+      if(item.kategori == "man"){
+        this.updateMan(this.idProductUpdate, item.jumlah);
+      }
+      this.readData();
     },
-    hapus() {
-      var index = this.todos.indexOf(this.itemTemp);
-      this.todos.splice(index, 1);
-      this.dialogHapus = false;
-    },
-    total(index) {
-      return this.cart[index].jumlah * this.harga;
-    },
-    save() {
-      for(let i=0;i<this.cart.length;i++)
-      {
-        var index = this.cart[i].id_cart + 1;
-        var url = this.$api + "/cart/" + index;
-        this.load = true;
+    updateMan(id_produk,jumlah){
+        var url = this.$api + "/man/" + id_produk + "/" + jumlah;
         this.$http
-          .put(url, this.cart[i])
-          .then((response) => {
-            this.error_message = response.data.message;
-            this.snackbar = false;
-            this.readData();
+          .put(
+            url,
+            // {
+            //         headers:{
+            //             'Authorization': 'Bearer ' + localStorage.getItem('token')
+            //         }
+            // }
+          ).then((response) => {
+          this.error_message = response.data.message;
+          this.color = "green";
+          this.snackbar = true;
           })
           .catch((error) => {
             this.error_message = error.response.data.message;
-            this.color = "red";
+            console.log(this.error_message);
+            this.error_message = "Something error...";
             this.snackbar = true;
-            this.load = false;
+            this.color ="red"
           });
-      }
+    },
+    deleteCart(idCart){
+       var url = this.$api + "/cart/" + idCart;
+      //data dihapus berdasarkan id
+      this.$http
+        .delete(
+          url,
+          {
+              headers:{
+                  'Authorization': 'Bearer ' + localStorage.getItem('token')
+              }
+          }
+        )
+        .then((response) => {
+          this.error_message = response.data.message;
+          this.color = "green";
+          this.snackbar = true;
+        })
+        .catch((error) => {
+          this.error_message = error.response.data.message;
+          console.log(this.error_message);
+        });
+    },
+    total(index) {
+      return this.cart[index].jumlah * this.harga;
     },
   },
 

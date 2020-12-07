@@ -21,6 +21,7 @@
           <br />
 
           <h3 class="red--text">IDR {{ product.harga_produkM }}</h3>
+          <v-spacer>Stok : {{ product.stok}}</v-spacer>
           <br />
           <v-form v-model="valid" ref="formStok">
             <v-row class="md-6 sm-12"
@@ -70,6 +71,7 @@ export default {
     error_message: "",
     color: "",
     snackbar: false,
+    cekStatus: [],
     quantity: 0,
     valid: false,
     name: "detail",
@@ -106,7 +108,7 @@ export default {
             this.snackbar = true;
             this.color = "red";
           } else {
-            this.getStatus(this.product.id_aksesoris,this.size);
+            this.getStatus(this.product.id_produkM,this.size);
           }
         }
       }else{
@@ -116,7 +118,7 @@ export default {
       }
     },
     getStatus(idProduk,size){
-      var url = this.$api + "/cart-cek/" + idProduk + "/" + this.id_user +"/"+size;
+      var url = this.$api + "/cart-cek/" + idProduk + "/" + this.id_user +"/"+size+"/man";
       this.$http
         .get(url, {
           headers: {
@@ -142,7 +144,7 @@ export default {
           size: size,
           stok: this.stok,
         };
-        var url = this.$api + "/cart-update/"+idProduk+"/"+this.id_user+"/"+size+"/"+this.stok;
+        var url = this.$api + "/cart-update/"+idProduk+"/"+this.id_user+"/"+size+"/man/"+this.stok;
         this.load = true;
         this.$http
           .put(
@@ -166,9 +168,10 @@ export default {
           })
           .catch((error) => {
             this.error_message = error.response.data.message;
-            this.color = "red";
+            console.log(this.error_message);
+            this.error_message = "Something wrong..."
             this.snackbar = true;
-            this.load = false;
+            this.color="red"
           });
     },
     addToCart() {
@@ -181,12 +184,6 @@ export default {
       this.pesan.append("total_harga", this.total_harga);
       this.pesan.append("isPay", 0);
       this.pesan.append("kategori", "man");
-
-      console.log(this.id_produk);
-      console.log(this.id_user);
-      console.log(this.total_harga);
-      console.log(this.stok);
-      console.log(this.size);
 
       var url = this.$api + "/cart";
       this.load = true;
@@ -208,14 +205,14 @@ export default {
         })
         .catch((error) => {
           this.error_message = error.response.data.message;
-          this.color = "red";
+          console.log(this.error_message);
+          this.error_message = "Something wrong..."
           this.snackbar = true;
-          this.load = false;
+          this.color="red"
         });
     },
     reduceStok() {
       let newStok = this.product.stok - this.stok;
-      console.log(newStok);
       let newData = {
         nama_produkM: this.product.nama_produkM,
         harga_produkM: this.product.harga_produkM,
@@ -226,17 +223,6 @@ export default {
       this.load = true;
       this.$http
         .put(url, newData)
-        .then((response) => {
-          this.error_message = response.data.message;
-          this.snackbar = false;
-          this.readData();
-        })
-        .catch((error) => {
-          this.error_message = error.response.data.message;
-          this.color = "red";
-          this.snackbar = true;
-          this.load = false;
-        });
     },
     readData() {
       var url = this.$api + "/man/" + this.$route.params.id_produkM;
@@ -249,7 +235,6 @@ export default {
         .then((response) => {
           this.product = response.data.data;
           this.stokProduk = response.data.data.stok;
-          console.log(this.stokProduk);
         });
     },
     onPageChange() {
