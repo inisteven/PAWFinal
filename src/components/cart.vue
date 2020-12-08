@@ -19,56 +19,19 @@
             <tbody>
               <tr v-for="(item, index) in cart" :key="index">
                 <th>
-                  <div v-if="item.kategori == 'woman'">
                     <img
                       :src="
-                        'http://127.0.0.1:8000/products/' +
-                        readDataWoman(item.id_productCart)
+                        'http://127.0.0.1:8000/products/' + item.image
                       "
                       alt="Image"
                       width="190px"
                       height="260px"
                     />
-                  </div>
-                  <div v-if="item.kategori == 'man'">
-                    <img
-                      :src="
-                        'http://127.0.0.1:8000/products/' +
-                        readDataMan(item.id_productCart)
-                      "
-                      alt="Image"
-                      width="190px"
-                      height="260px"
-                    />
-                  </div>
-                  <div v-if="item.kategori == 'acc'">
-                    <img
-                      :src="
-                        'http://127.0.0.1:8000/products/' +
-                        readDataAcc(item.id_productCart)
-                      "
-                      alt="Image"
-                      width="180px"
-                      height="260px"
-                    />
-                  </div>
                 </th>
                 <td>
-                  <div class="product-info" v-if="item.kategori == 'woman'">
-                    <h5>{{ woman.nama_produkW }}</h5>
-                    <h6>{{ woman.harga_produkW }}</h6>
+                    <h5>{{ item.nama_produk }}</h5>
+                    <h6>{{ item.harga_produk }}</h6>
                     <subtitle-2>{{ item.size }}</subtitle-2>
-                  </div>
-                  <div class="product-info" v-if="item.kategori == 'man'">
-                    <h5>{{ man.nama_produkM }}</h5>
-                    <h6>{{ man.harga_produkM }}</h6>
-                    <subtitle-2>{{ item.size }}</subtitle-2>
-                  </div>
-                  <div class="product-info" v-if="item.kategori == 'acc'">
-                    <h5>{{ acc.nama_aksesoris }}</h5>
-                    <h6>{{ acc.harga_aksesoris }}</h6>
-                    <subtitle-2>{{ item.size }}</subtitle-2>
-                  </div>
                 </td>
                 <td>
                   {{ item.jumlah }}
@@ -78,7 +41,7 @@
                   <v-icon
                     small
                     class="mr-2"
-                    @click="deleteDialog"
+                    @click="deleteDialog(item.id_cart)"
                     icon
                     slot="activator"
                     >X</v-icon
@@ -92,7 +55,7 @@
                   <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn text @click="dialogHapus = false"> No </v-btn>
-                    <v-btn text @click="deleteItem(item)"> Yes </v-btn>
+                    <v-btn text @click="deleteItem"> Yes </v-btn>
                   </v-card-actions>
                 </v-card>
               </v-dialog>
@@ -112,7 +75,7 @@
           
           <div class="row justify-content-end">
             <div class="col-md-4">
-              <v-btn class="black white--text" text router to="/payment" dark small
+              <v-btn class="black white--text"  @click="cekCheckOut" text dark small
                 >CHECKOUT</v-btn
               >
             </div>
@@ -140,6 +103,7 @@ export default {
     dialogHapus: false,
     quantity: 1,
     cart: [],
+    idHapus:0,
     woman: [],
     color: "",
     snackbar:"",
@@ -175,6 +139,15 @@ export default {
     ],
   }),
   methods: {
+    cekCheckOut(){
+      if(this.cart.length < 1){
+        this.error_message = "Shopping first for check out";
+        this.snackbar = true;
+        this.color = "red";
+      }else{
+        this.$router.push('/payment');
+      }
+    },
     readData() {
       var url = this.$api + "/cart/"+ localStorage.getItem("id");
       this.$http
@@ -189,58 +162,18 @@ export default {
           console.log(this.total_harga);
         });
     },
-    readDataWoman(id) {
-      var url = this.$api + "/woman/" + id;
-      this.$http
-        .get(url, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
-        .then((response) => {
-          this.woman = response.data.data;
-        });
-      return this.woman.gambar_produkW;
-    },
-    readDataMan(id) {
-      var url = this.$api + "/man/" + id;
-      this.$http
-        .get(url, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
-        .then((response) => {
-          this.man = response.data.data;
-        });
-      return this.man.gambar_produkM;
-    },
-    readDataAcc(id) {
-      this.getJumlah();
-      console.log(this.total_harga);
-      var url = this.$api + "/acc/" + id;
-      this.$http
-        .get(url, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
-        .then((response) => {
-          this.acc = response.data.data;
-        });
-      return this.acc.gambar_aksesoris;
-    },
-    deleteDialog(){
+    deleteDialog(id_hapus){
+      this.idHapus = id_hapus;
       this.dialogHapus = true;
     },
-    deleteItem(item) {
+    deleteItem() {
       this.dialogHapus = true;
-      this.idCart = item.id_cart;
-      this.deleteCart(this.idCart);
-      this.readData();
+      this.deleteCart(this.idHapus);
+      this.load = false;
       this.dialogHapus = false;
     },
     deleteCart(idCart){
+      console.log(idCart);
        var url = this.$api + "/cart/" + idCart;
       //data dihapus berdasarkan id
       this.$http
@@ -253,6 +186,7 @@ export default {
           }
         )
         .then((response) => {
+          this.readData();
           this.error_message = response.data.message;
           this.color = "green";
           this.snackbar = true;

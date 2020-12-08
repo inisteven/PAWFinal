@@ -182,6 +182,9 @@ export default {
       this.pesan.append("total_harga", this.total_harga);
       this.pesan.append("isPay", 0);
       this.pesan.append("kategori", "woman");
+      this.pesan.append("nama_produk", this.product.nama_produkW);
+      this.pesan.append("harga_produk", this.product.harga_produkW);
+      this.pesan.append("image", this.product.gambar_produkW);
 
       var url = this.$api + "/cart";
       this.load = true;

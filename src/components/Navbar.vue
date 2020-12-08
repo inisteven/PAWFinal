@@ -2,17 +2,7 @@
   <header>
     <nav class="navbar navbar-expand-md navbar-light">
       <div class="navbar-collapse w-100 order-1 order-md-0" v-show="isHidden">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <v-text-field
-              v-model="search"
-              hide-details
-              prepend-icon="mdi-magnify"
-              label="Search our item"
-              single-line
-            ></v-text-field>
-          </li>
-        </ul>
+        <!-- <strong>Choose whatever you want</strong> -->
       </div>
       <div class="mx-auto order-0">
         <b-navbar-brand href="#">

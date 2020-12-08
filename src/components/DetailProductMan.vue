@@ -184,6 +184,9 @@ export default {
       this.pesan.append("total_harga", this.total_harga);
       this.pesan.append("isPay", 0);
       this.pesan.append("kategori", "man");
+      this.pesan.append("nama_produk", this.product.nama_produkM);
+      this.pesan.append("harga_produk", this.product.harga_produkM);
+      this.pesan.append("image", this.product.gambar_produkM);
 
       var url = this.$api + "/cart";
       this.load = true;
