@@ -39,7 +39,7 @@
           <h1 class="display-1 font-weight-bold mb-4">Hot Item</h1>
         </v-col>
       </v-row>
-      <v-row>
+      <v-row class="text-center">
         <v-col>
           <router-link :to="'/detailMan/' + man.id_produkM">
             <img
