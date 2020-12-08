@@ -6,7 +6,7 @@
       <v-row align="center" justify="center">
         <v-col class="sm-5 align-content-center d-flex justify-content-center">
           <img
-            :src="'http://127.0.0.1:8000/products/' + product.gambar_produkW"
+            :src="'http://paw.olehstyle.xyz/products/' + product.gambar_produkW"
             alt="Image"
             width="250px"
             height="360px"
@@ -102,7 +102,8 @@ export default {
     pesanan() {
       if(localStorage.getItem("isLoggedIn")){
         if (this.$refs.formStok.validate()) {
-          if (this.stok > this.product.stok) {
+          console.log(this.product.stok);
+          if (parseFloat(this.stok) > parseFloat(this.product.stok)) {
             this.error_message = "Stock is not enough !";
             this.snackbar = true;
             this.color = "red";
@@ -221,22 +222,10 @@ export default {
         deskripsi_produkW: this.product.deskripsi_produkW,
         stok: newStok,
       };
-      var url = this.$api + "/woman/" + this.id_produk;
+      var url = this.$api + "/woman/" + this.product.id_produkW;
       this.load = true;
       this.$http
         .put(url, newData)
-        .then((response) => {
-          this.error_message = response.data.message;
-          this.snackbar = false;
-          this.readData();
-        })
-        .catch((error) => {
-          this.error_message = error.response.data.message;
-          console.log(this.error_message);
-          this.error_message = "Something wrong..."
-          this.color = "red";
-          this.snackbar = true;
-        });
     },
     readData() {
       var url = this.$api + "/woman/" + this.$route.params.id_produkW;

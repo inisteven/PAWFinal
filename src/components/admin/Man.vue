@@ -146,6 +146,7 @@ export default {
   name: "Man",
   data() {
     return {
+      token: "",
       imagePathEdit: "",
       imagePathCreate: "",
       titleForm: "",
@@ -196,9 +197,11 @@ export default {
       this.$http
         .get(
           url
-          //{ headers: {
-          //     'Authorization': 'Bearer ' + localStorage.getItem('token')
-          // }}
+          ,{
+              headers:{
+                  Authorization: "Bearer " + this.token,
+              }
+            }
         )
         .then((response) => {
           this.products = response.data.data;
@@ -225,11 +228,11 @@ export default {
         .post(
           url,
           image
-          // {
-          //         headers:{
-          //             'Authorization': 'Bearer ' + localStorage.getItem('token')
-          //         }
-          // }
+          ,{
+                    headers:{
+                        Authorization: "Bearer " + this.token,
+                    }
+            }
         )
         .then((response) => {
           this.error_message = response.data.message;
@@ -277,11 +280,11 @@ export default {
       this.$http
         .delete(
           url
-          // {
-          //     headers:{
-          //         'Authorization': 'Bearer ' + localStorage.getItem('token')
-          //     }
-          // }
+          ,{
+                    headers:{
+                        Authorization: "Bearer " + this.token,
+                    }
+            }
         )
         .then((response) => {
           this.error_message = response.data.message;
@@ -318,11 +321,11 @@ export default {
           .put(
             url,
             newData
-            // {
-            //         headers:{
-            //             'Authorization': 'Bearer ' + localStorage.getItem('token')
-            //         }
-            // }
+            ,{
+                    headers:{
+                        Authorization: "Bearer " + this.token,
+                    }
+            }
           )
           .then((response) => {
             this.error_message = response.data.message;
@@ -348,18 +351,17 @@ export default {
         this.product.append("deskripsi_produkM", this.form.description);
         this.product.append("gambar_produkM", this.form.image);
         this.product.append("stok", this.form.stok);
-        console.log(this.product.gambar_produkM);
-        var url = this.$api + "/man/";
+        var url = this.$api + "/man";
         this.load = true;
         this.$http
           .post(
             url,
             this.product
-            // {
-            //         headers:{
-            //             'Authorization': 'Bearer ' + localStorage.getItem('token')
-            //         }
-            // }
+            ,{
+                    headers:{
+                        Authorization: "Bearer " + this.token,
+                    }
+            }
           )
           .then((response) => {
             this.error_message = response.data.message;
@@ -391,6 +393,7 @@ export default {
     },
   },
   mounted() {
+    this.token = localStorage.getItem('token');
     this.readData();
   },
 };

@@ -151,6 +151,7 @@ export default {
   name: "acc",
   data() {
     return {
+      token: "",
       imagePathEdit: "",
       imagePathCreate: "",
       titleForm: "",
@@ -201,9 +202,11 @@ export default {
       this.$http
         .get(
           url
-          //{ headers: {
-          //     'Authorization': 'Bearer ' + localStorage.getItem('token')
-          // }}
+          ,{
+              headers:{
+                  Authorization: "Bearer " + this.token,
+              }
+            }
         )
         .then((response) => {
           this.products = response.data.data;
@@ -230,11 +233,11 @@ export default {
         .post(
           url,
           image
-          // {
-          //         headers:{
-          //             'Authorization': 'Bearer ' + localStorage.getItem('token')
-          //         }
-          // }
+          ,{
+              headers:{
+                  Authorization: "Bearer " + this.token,
+              }
+            }
         )
         .then((response) => {
           this.error_message = response.data.message;
@@ -282,11 +285,11 @@ export default {
       this.$http
         .delete(
           url
-          // {
-          //     headers:{
-          //         'Authorization': 'Bearer ' + localStorage.getItem('token')
-          //     }
-          // }
+          ,{
+              headers:{
+                  Authorization: "Bearer " + this.token,
+              }
+            }
         )
         .then((response) => {
           this.error_message = response.data.message;
@@ -323,11 +326,11 @@ export default {
           .put(
             url,
             newData
-            // {
-            //         headers:{
-            //             'Authorization': 'Bearer ' + localStorage.getItem('token')
-            //         }
-            // }
+            ,{
+                headers:{
+                    Authorization: "Bearer " + this.token,
+                }
+            }
           )
           .then((response) => {
             this.error_message = response.data.message;
@@ -354,17 +357,17 @@ export default {
         this.product.append("gambar_aksesoris", this.form.image);
         this.product.append("stok", this.form.stok);
         console.log(this.product.gambar_aksesoris);
-        var url = this.$api + "/acc/";
+        var url = this.$api + "/acc";
         this.load = true;
         this.$http
           .post(
             url,
             this.product
-            // {
-            //         headers:{
-            //             'Authorization': 'Bearer ' + localStorage.getItem('token')
-            //         }
-            // }
+            ,{
+                headers:{
+                    Authorization: "Bearer " + this.token,
+                }
+            }
           )
           .then((response) => {
             this.error_message = response.data.message;
@@ -396,6 +399,7 @@ export default {
     },
   },
   mounted() {
+    this.token = localStorage.getItem('token');
     this.readData();
   },
 };

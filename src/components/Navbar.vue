@@ -183,7 +183,7 @@ export default {
     },
     getJumlah(){
       for(let i=0 ; i<this.nCarts.length;i++){
-        this.jumlah += this.nCarts[i].jumlah;
+        this.jumlah += parseFloat(this.nCarts[i].jumlah);
       }
     },
     readData() {

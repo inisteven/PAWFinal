@@ -21,7 +21,7 @@
           >
             <router-link :to="'/detailMan/' + item.id_produkM">
               <img
-                :src="'http://127.0.0.1:8000/products/' + item.gambar_produkM"
+                :src="'http://paw.olehstyle.xyz/products/' + item.gambar_produkM"
                 alt="Image"
                 width="250px"
                 height="360px"
@@ -67,7 +67,7 @@ export default {
       this.$http
         .get(
           url
-          //{ headers: {
+          // ,{ headers: {
           //     'Authorization': 'Bearer ' + localStorage.getItem('token')
           // }}
         )

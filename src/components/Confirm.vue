@@ -131,7 +131,7 @@ export default {
     man: [],
     acc: [],
     harga: [],
-    user: [],
+    user: {},
     order: [],
     headers: [
       {
@@ -169,9 +169,14 @@ export default {
     save() {
       let image = new FormData();
       image.append("image",this.imageTF);
-      var url = this.$api + "/order/upload-image/" + this.order.id_order;
+      var url = this.$api + "/order-image/upload-image/" + this.order.id_order;
       this.$http
-        .post(url, image)
+        .post(url, image,
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        })
         .then((response) => {
           console.log(response.data.message);
           this.updateCart();
@@ -183,7 +188,12 @@ export default {
         isPay : 1,
       }
       var url = this.$api + "/cart-update-pay/" + localStorage.getItem('id');
-      this.$http.put(url,newData)
+      this.$http.put(url,newData,
+      {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          }, 
+      })
     },
     readData() {
       var url = this.$api + "/cart/"+ localStorage.getItem("id");
@@ -211,6 +221,18 @@ export default {
           this.order = response.data.data;
         });
     },
+    readDataUser() {
+      var url = this.$api + "/user/" + localStorage.getItem("id");
+      this.$http
+        .get(url, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        })
+        .then((response) => {
+          this.user = response.data.data;
+        });
+    },
     deleteItem(item) {
       this.dialogHapus = true;
       this.itemTemp = item;
@@ -230,7 +252,7 @@ export default {
     subtotal(){
       var totalH=0;
       for(let i=0;i<this.cart.length;i++){
-        totalH=totalH+this.cart[i].total_harga;
+        totalH= parseFloat(totalH)+ parseFloat(this.cart[i].total_harga);
       }
       this.total=totalH;
       return totalH;
@@ -238,7 +260,7 @@ export default {
   },
   computed: {
     totalHarga: function(){
-      return this.total + 50000;
+      return parseFloat(this.total) + parseFloat(50000);
     },
     fullname: function (){
       return this.user.first_name + " " + this.user.last_name;

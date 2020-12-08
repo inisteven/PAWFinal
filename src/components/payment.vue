@@ -205,9 +205,9 @@ export default {
           var url = this.$api + "/order";
           this.$http
             .post(url, this.order, {
-              headers: {
-                Authorization: "Bearer " + localStorage.getItem("token"),
-              },
+              // headers: {
+              //   Authorization: "Bearer " + localStorage.getItem("token"),
+              // },
             })
             .then(() => {
               this.$router.push("/confirmation");

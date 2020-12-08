@@ -20,7 +20,7 @@
           >
             <router-link :to="'/detailWoman/' + item.id_produkW">
               <img
-                :src="'http://127.0.0.1:8000/products/' + item.gambar_produkW"
+                :src="'http://paw.olehstyle.xyz/products/' + item.gambar_produkW"
                 alt="Image"
                 width="250px"
                 height="360px"

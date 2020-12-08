@@ -21,7 +21,7 @@
                 <th>
                     <img
                       :src="
-                        'http://127.0.0.1:8000/products/' + item.image
+                        'http://paw.olehstyle.xyz/products/' + item.image
                       "
                       alt="Image"
                       width="190px"

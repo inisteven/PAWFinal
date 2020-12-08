@@ -6,7 +6,7 @@
       <v-row align="center" justify="center">
         <v-col class="sm-5 align-content-center d-flex justify-content-center">
           <img
-            :src="'http://127.0.0.1:8000/products/' + product.gambar_produkM"
+            :src="'http://paw.olehstyle.xyz/products/' + product.gambar_produkM"
             alt="Image"
             width="250px"
             height="360px"
@@ -68,6 +68,7 @@ import Footer from "./Footer.vue";
 export default {
   data: () => ({
     product: [],
+    token : "",
     error_message: "",
     color: "",
     snackbar: false,
@@ -103,7 +104,7 @@ export default {
     pesanan() {
       if(localStorage.getItem("isLoggedIn")){
         if (this.$refs.formStok.validate()) {
-          if (this.stok > this.product.stok) {
+          if (parseFloat(this.stok) > parseFloat(this.product.stok)) {
             this.error_message = "Stock is not enough !";
             this.snackbar = true;
             this.color = "red";
@@ -151,9 +152,9 @@ export default {
             url,
             newData,
             {
-                    headers:{
-                        'Authorization': 'Bearer ' + localStorage.getItem('token')
-                    }
+              headers:{
+                  Authorization: "Bearer " + this.token,
+              }
             }
           )
           .then((response) => {
@@ -191,11 +192,13 @@ export default {
       var url = this.$api + "/cart";
       this.load = true;
       this.$http
-        .post(url, this.pesan, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
+        .post(url, this.pesan, 
+            {
+              headers:{
+                  Authorization: "Bearer " + this.token,
+              }
+            }
+        )
         .then((response) => {
           this.error_message = response.data.message;
           this.color = "green";
@@ -216,13 +219,14 @@ export default {
     },
     reduceStok() {
       let newStok = this.product.stok - this.stok;
+      console.log(newStok);
       let newData = {
         nama_produkM: this.product.nama_produkM,
         harga_produkM: this.product.harga_produkM,
         deskripsi_produkM: this.product.deskripsi_produkM,
         stok: newStok,
       };
-      var url = this.$api + "/man/" + this.id_produk;
+      var url = this.$api + "/man/" + this.product.id_produkM;
       this.load = true;
       this.$http
         .put(url, newData)
@@ -250,6 +254,7 @@ export default {
     "footer-component": Footer,
   },
   mounted() {
+    this.token = localStorage.getItem('token');
     this.readData();
   },
 };

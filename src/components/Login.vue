@@ -115,10 +115,12 @@ export default {
                 email: this.email,
                 password: this.password
             }).then(response=>{
+                localStorage.setItem('token', response.data.access_token); //menyimpan auth token
+                console.log(localStorage.getItem('token'));
                 if(response.data.user.id==1){
                   this.$router.push('/admin-dashboard')
                 }else{
-                  localStorage.setItem('token', response.data.access_token); //menyimpan auth token
+                  
                   localStorage.setItem('isLoggedIn', true);
                   this.error_message = response.data.message;
                   if(response.data.status == "success"){

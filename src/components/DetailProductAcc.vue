@@ -6,7 +6,7 @@
       <v-row align="center" justify="center">
         <v-col class="sm-5 align-content-center d-flex justify-content-center">
           <img
-            :src="'http://127.0.0.1:8000/products/' + product.gambar_aksesoris"
+            :src="'http://paw.olehstyle.xyz/products/' + product.gambar_aksesoris"
             alt="Image"
             width="250px"
             height="360px"
@@ -70,6 +70,7 @@ export default {
     product: [],
     error_message: "",
     color: "",
+    token: "",
     snackbar: false,
     quantity: 0,
     cekStatus: [],
@@ -103,7 +104,7 @@ export default {
     pesanan() {
       if(localStorage.getItem("isLoggedIn")){
         if (this.$refs.formStok.validate()) {
-          if (this.stok > this.product.stok) {
+          if (parseFloat(this.stok) > parseFloat(this.product.stok)) {
             this.error_message = "Stock is not enough !";
             this.snackbar = true;
             this.color = "red";
@@ -151,9 +152,9 @@ export default {
             url,
             newData,
             {
-                    headers:{
-                        'Authorization': 'Bearer ' + localStorage.getItem('token')
-                    }
+              headers:{
+                  'Authorization': 'Bearer ' + this.token,
+              }
             }
           )
           .then((response) => {
@@ -193,7 +194,7 @@ export default {
       this.$http
         .post(url, this.pesan, {
           headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
+            Authorization: "Bearer " + this.token,
           },
         })
         .then((response) => {
@@ -222,7 +223,7 @@ export default {
         deskripsi_aksesoris: this.product.deskripsi_aksesoris,
         stok: newStok,
       };
-      var url = this.$api + "/acc/" + this.id_produk;
+      var url = this.$api + "/acc/" + this.product.id_aksesoris;
       this.$http
         .put(url, newData)
     },
@@ -250,6 +251,7 @@ export default {
     "footer-component": Footer,
   },
   mounted() {
+    this.token = localStorage.getItem('token');
     this.readData();
   },
 };

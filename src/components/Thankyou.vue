@@ -2,7 +2,7 @@
   <div id="app">
     <navbar-component></navbar-component>
     <div class="back">
-      <h1>Thank you for shopping with LOGO</h1>
+      <h1>Thank you for shopping with Oleh's Style</h1>
       <h1>You've made a great choice</h1>
 
       <v-btn class="black white--text" text router to="/home" dark

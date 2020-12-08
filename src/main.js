@@ -22,10 +22,8 @@ Vue.use(IconsPlugin)
 Vue.config.productionTip = false
 
 Vue.prototype.$http = axios;
-Vue.prototype.$api = 'http://127.0.0.1:8000/api';
-Vue.prototype.$url = 'http://127.0.0.1:8000/';
-Vue.prototype.$urlImage = 'http://127.0.0.1:8000/products/';
-Vue.prototype.$urlProfile = 'http://127.0.0.1:8000/profile/';
+Vue.prototype.$api = 'http://paw.olehstyle.xyz/api';
+Vue.prototype.$url = 'http://paw.olehstyle.xyz/';
 
 import * as VueGoogleMaps from 'vue2-google-maps'
 Vue.use(VueGoogleMaps, {

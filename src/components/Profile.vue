@@ -87,7 +87,7 @@
         </div>
       </div>
       <div class="btn  d-flex justify-end mb-4">
-        <v-btn @click="cancel" style="margin-right:20px">Cancel</v-btn>
+        <v-btn @click="cancel" style="margin-right:20px">BACK</v-btn>
         <v-btn @click="save" class="success">Save</v-btn>
       </div>
     </div>
@@ -142,7 +142,7 @@ export default {
           this.last_name = response.data.data.last_name;
           this.email = response.data.data.email;
           this.image  = response.data.data.image;
-          this.urlImage= "http://127.0.0.1:8000/profile/" + this.image;
+          this.urlImage= "http://paw.olehstyle.xyz/profile/" + this.image;
           console.log(this.urlImage);
           // this.first_name = response.data.data.first_name;
         })
@@ -261,7 +261,7 @@ export default {
       }
     },
     cancel() {
-      this.resetForm();
+      this.$router.push('/')
     },
   },
   components: {

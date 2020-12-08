@@ -94,6 +94,9 @@ export default {
       this.dialog = false;
     },
   },
+  mounted(){
+    console.log(localStorage.getItem('token'));
+  }
 };
 </script>
 <style scoped>
